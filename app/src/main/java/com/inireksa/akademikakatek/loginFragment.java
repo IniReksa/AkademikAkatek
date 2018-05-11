@@ -44,7 +44,7 @@ public class loginFragment extends Fragment {
 
         session = new Session(getActivity());
         if (session.loggedin()){
-            getActivity().startActivity(new Intent(getActivity(), MainActivity.class));
+            getActivity().startActivity(new Intent(getActivity(), Main2Activity.class));
             getActivity().finish();
         }
         
@@ -97,7 +97,7 @@ public class loginFragment extends Fragment {
                     session = new Session(getActivity().getApplicationContext());
                     session.setLoggedin(true);
 
-                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    Intent intent = new Intent(getActivity(), Main2Activity.class);
                     getActivity().startActivity(intent);
                     getActivity().finish();
 

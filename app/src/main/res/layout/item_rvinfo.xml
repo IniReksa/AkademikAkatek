@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="7dp"
+        app:cardElevation="5dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tanggal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tanggal"
+                android:padding="5dp"
+                android:textStyle="italic"
+                android:textColor="@color/colorAccent"
+                android:background="@color/colorPrimary"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:paddingTop="5dp"
+                android:paddingLeft="7dp"
+                android:paddingBottom="7dp"
+                android:paddingRight="7dp"
+                android:id="@+id/infoakademik"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Info yang akan disampaikan"
+                android:textSize="17sp"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_gravity="end"
+            android:layout_margin="5dp"
+            android:id="@+id/img_unduh"
+            android:src="@drawable/ic_download"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
