@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="7dp"
+        app:cardElevation="5dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tanggalKalender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tanggal"
+                android:padding="5dp"
+                android:textStyle="italic"
+                android:textColor="@color/colorAccent"
+                android:background="@drawable/bg_info"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:paddingTop="5dp"
+                android:paddingLeft="7dp"
+                android:paddingBottom="7dp"
+                android:paddingRight="7dp"
+                android:id="@+id/ketKalender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kegiatan Akademik"
+                android:textSize="17sp"/>
+        </LinearLayout>
+        <TextView
+            android:background="@drawable/bg_ruang"
+            android:textColor="@color/colorAccent"
+            android:textStyle="italic"
+            android:id="@+id/ketMahasiswa"
+            android:layout_gravity="end"
+            android:padding="5dp"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Keterangan"/>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
