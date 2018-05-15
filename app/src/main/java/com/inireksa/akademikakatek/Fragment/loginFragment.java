@@ -1,4 +1,4 @@
-package com.inireksa.akademikakatek;
+package com.inireksa.akademikakatek.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.inireksa.akademikakatek.InterfaceAPI;
+import com.inireksa.akademikakatek.Main2Activity;
+import com.inireksa.akademikakatek.Model.Value;
+import com.inireksa.akademikakatek.R;
+import com.inireksa.akademikakatek.Session;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -86,6 +92,7 @@ public class loginFragment extends Fragment {
         call.enqueue(new Callback<Value>() {
             @Override
             public void onResponse(Call<Value> call, Response<Value> response) {
+                Value value = new Value();
                 String error = response.body().getError();
                 String message = response.body().getMessage();
 

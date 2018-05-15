@@ -26,4 +26,9 @@
         <item name="colorAccent">@color/warnainput</item>
     </style>
 
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:windowBackground">@drawable/bg_dialog</item>
+    </style>
+
 </resources>

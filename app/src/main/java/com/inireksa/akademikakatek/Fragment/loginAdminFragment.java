@@ -1,4 +1,4 @@
-package com.inireksa.akademikakatek;
+package com.inireksa.akademikakatek.Fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.inireksa.akademikakatek.R;
 
 /**
  * Created by IniReksa on 4/26/2018.

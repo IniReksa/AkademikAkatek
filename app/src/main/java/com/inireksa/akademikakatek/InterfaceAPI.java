@@ -1,5 +1,7 @@
 package com.inireksa.akademikakatek;
 
+import com.inireksa.akademikakatek.Model.Value;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

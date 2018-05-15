@@ -1,4 +1,4 @@
-package com.inireksa.akademikakatek;
+package com.inireksa.akademikakatek.Model;
 
 /**
  * Created by IniReksa on 4/27/2018.

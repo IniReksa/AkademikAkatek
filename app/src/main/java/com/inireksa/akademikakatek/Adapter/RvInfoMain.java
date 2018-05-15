@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.inireksa.akademikakatek.Info;
+import com.inireksa.akademikakatek.Model.Info;
 import com.inireksa.akademikakatek.R;
 
 import java.util.ArrayList;
@@ -23,15 +23,8 @@ public class RvInfoMain extends RecyclerView.Adapter<RvInfoMain.ViewHolder> {
     public RvInfoMain(){
         super();
         infos = new ArrayList<Info>();
-        Info info = new Info();
-        info.setTanggal("2-3-2018");
-        info.setInfo("uts akan dilaksanakan pada diharapkan semua mahasiswa sudah memenuhi persyarakat admin");
-        infos.add(info);
-
-        info = new Info();
-        info.setTanggal("31-3-2018");
-        info.setInfo("Cek sinyal");
-        infos.add(info);
+        infos.add(new Info("2-3-2018", "uts akan dilaksanakan pada diharapkan semua mahasiswa sudah memenuhi persyarakat admin"));
+        infos.add(new Info("20-5-1028", "Cek Sinyal"));
     }
 
     @Override
@@ -45,8 +38,8 @@ public class RvInfoMain extends RecyclerView.Adapter<RvInfoMain.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Info itemInfo = infos.get(position);
-        holder.tanggal.setText(itemInfo.getTanggal());
-        holder.info.setText(itemInfo.getInfo());
+        holder.tanggal.setText(itemInfo.tanggal);
+        holder.info.setText(itemInfo.info);
     }
 
     @Override

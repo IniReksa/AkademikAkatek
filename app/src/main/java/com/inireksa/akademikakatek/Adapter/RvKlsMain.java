@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.inireksa.akademikakatek.Mahasiswa;
+import com.inireksa.akademikakatek.Model.Mahasiswa;
 import com.inireksa.akademikakatek.R;
 
 import java.util.List;
@@ -35,8 +35,8 @@ public class RvKlsMain extends RecyclerView.Adapter<RvKlsMain.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-
-        holder.img.setImageResource(mData.get(position).getImg());
+        Mahasiswa itemMahasiswa = mData.get(position);
+        holder.img.setImageResource(itemMahasiswa.img);
     }
 
     @Override

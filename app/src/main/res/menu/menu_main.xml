@@ -4,7 +4,7 @@
     tools:context="com.inireksa.akademikakatek.LoginActivity">
 
     <item
-        android:id="@+id/menukalender"
+        android:id="@+id/menuInfo"
         android:orderInCategory="1"
         android:title="kalender"
         android:icon="@drawable/ic_notifications"

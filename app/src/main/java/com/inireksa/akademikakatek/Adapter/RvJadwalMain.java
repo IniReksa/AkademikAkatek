@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.inireksa.akademikakatek.Jadwal;
+import com.inireksa.akademikakatek.Model.Jadwal;
 import com.inireksa.akademikakatek.R;
 
 import java.util.ArrayList;
@@ -23,26 +23,10 @@ public class RvJadwalMain extends RecyclerView.Adapter<RvJadwalMain.ViewHolder> 
     public RvJadwalMain(){
         super();
         jadwals = new ArrayList<Jadwal>();
-        Jadwal jadwal = new Jadwal();
-        jadwal.setSesi("4");
-        jadwal.setDosen("Muhamad Angga Reksa Purwana");
-        jadwal.setMatkul("Pemrograman Visual Basic .NET 2010");
-        jadwal.setRuangan("2.3.2");
-        jadwals.add(jadwal);
+        jadwals.add(new Jadwal("8", "Pemrograman Visual Basic .NET 2010", "Muhamad Angga Reksa", "2.3.3", "Selasa"));
+        jadwals.add(new Jadwal("4", "Pemrograman Visual Basic .NET 2010", "Muhamad Angga Reksa", "2.3.3", "Rabu"));
+        jadwals.add(new Jadwal("5", "Pemrograman Web ", "Muhamad Angga Reksa", "2.6.3", "kamis"));
 
-        jadwal = new Jadwal();
-        jadwal.setSesi("8");
-        jadwal.setDosen("Muhamad Angga Reksa Purwana");
-        jadwal.setMatkul("Pemrograman Java java java java java");
-        jadwal.setRuangan("2.2.1");
-        jadwals.add(jadwal);
-
-        jadwal = new Jadwal();
-        jadwal.setSesi("2");
-        jadwal.setDosen("Muhamad Angga Reksa Purwana");
-        jadwal.setMatkul("Pemrograman WEB");
-        jadwal.setRuangan("2.2.2");
-        jadwals.add(jadwal);
     }
 
     @Override
@@ -56,10 +40,11 @@ public class RvJadwalMain extends RecyclerView.Adapter<RvJadwalMain.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Jadwal itemjadwal = jadwals.get(position);
-        holder.sesi.setText(itemjadwal.getSesi());
-        holder.matkul.setText(itemjadwal.getMatkul());
-        holder.dosen.setText(itemjadwal.getDosen());
-        holder.ruangan.setText(itemjadwal.getRuangan());
+        holder.sesi.setText(itemjadwal.sesi);
+        holder.matkul.setText(itemjadwal.matkul);
+        holder.dosen.setText(itemjadwal.dosen);
+        holder.ruangan.setText(itemjadwal.ruangan);
+        holder.hari.setText(itemjadwal.hari);
     }
 
     @Override
@@ -69,7 +54,7 @@ public class RvJadwalMain extends RecyclerView.Adapter<RvJadwalMain.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView sesi, matkul, dosen, ruangan;
+        TextView sesi, matkul, dosen, ruangan, hari;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -78,6 +63,7 @@ public class RvJadwalMain extends RecyclerView.Adapter<RvJadwalMain.ViewHolder> 
             matkul = (TextView) itemView.findViewById(R.id.matkul);
             dosen = (TextView) itemView.findViewById(R.id.dosen);
             ruangan = (TextView) itemView.findViewById(R.id.ruangan);
+            hari = (TextView) itemView.findViewById(R.id.jadwalHari);
 
         }
     }

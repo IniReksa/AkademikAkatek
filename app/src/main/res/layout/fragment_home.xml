@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_home"
+    android:id="@+id/homeFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.inireksa.akademikakatek.HomeFragment">
+    tools:context="com.inireksa.akademikakatek.Fragment.HomeFragment">
 
     <!--<View-->
         <!--android:layout_width="match_parent"-->
