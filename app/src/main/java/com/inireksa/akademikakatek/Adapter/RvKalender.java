@@ -42,7 +42,7 @@ public class RvKalender extends RecyclerView.Adapter<RvKalender.ViewHolder> {
         Kalender itemKalender = kalenders.get(position);
         holder.tanggal.setText(itemKalender.Tanggal);
         holder.kegiatan.setText(itemKalender.Kegiatan);
-        holder.ketmahasiswa.setText(itemKalender.KetMahasiswa);
+        holder.ketmahasiswa.setText(itemKalender.Keterangan);
     }
 
     @Override

@@ -5,11 +5,11 @@ package com.inireksa.akademikakatek.Model;
  */
 
 public class Info {
-    public String tanggal;
-    public String info;
+    public String Tanggal;
+    public String Info;
 
     public Info(String tanggal, String info) {
-        this.tanggal = tanggal;
-        this.info = info;
+        this.Tanggal = tanggal;
+        this.Info = info;
     }
 }

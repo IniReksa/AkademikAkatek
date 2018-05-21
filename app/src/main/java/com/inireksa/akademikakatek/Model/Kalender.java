@@ -7,11 +7,11 @@ package com.inireksa.akademikakatek.Model;
 public class Kalender {
     public String Tanggal;
     public String Kegiatan;
-    public String KetMahasiswa;
+    public String Keterangan;
 
     public Kalender(String Tanggal, String Kegiatan, String KetMahasiswa) {
         this.Tanggal = Tanggal;
         this.Kegiatan = Kegiatan;
-        this.KetMahasiswa = KetMahasiswa;
+        this.Keterangan = KetMahasiswa;
     }
 }

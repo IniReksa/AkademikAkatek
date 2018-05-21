@@ -1,15 +1,12 @@
 package com.inireksa.akademikakatek.Adapter;
 
 import android.content.Context;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.inireksa.akademikakatek.Model.Kalender;
 import com.inireksa.akademikakatek.Model.Nilai;
 import com.inireksa.akademikakatek.R;
 
@@ -45,7 +42,7 @@ public class RvNilai extends RecyclerView.Adapter<RvNilai.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Nilai itemnilai = nilais.get(position);
-        holder.matkul.setText(itemnilai.matkul);
+        holder.matkul.setText(itemnilai.Matkul);
     }
 
     @Override

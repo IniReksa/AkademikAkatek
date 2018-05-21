@@ -23,7 +23,7 @@ public class RvInfoMain extends RecyclerView.Adapter<RvInfoMain.ViewHolder> {
     public RvInfoMain(){
         super();
         infos = new ArrayList<Info>();
-        infos.add(new Info("2-3-2018", "uts akan dilaksanakan pada diharapkan semua mahasiswa sudah memenuhi persyarakat admin"));
+        infos.add(new Info("2-3-2018", "UTS akan dilaksanakan pada diharapkan semua mahasiswa sudah memenuhi persyarakat admin"));
         infos.add(new Info("20-5-1028", "Cek Sinyal"));
     }
 
@@ -38,8 +38,8 @@ public class RvInfoMain extends RecyclerView.Adapter<RvInfoMain.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Info itemInfo = infos.get(position);
-        holder.tanggal.setText(itemInfo.tanggal);
-        holder.info.setText(itemInfo.info);
+        holder.tanggal.setText(itemInfo.Tanggal);
+        holder.info.setText(itemInfo.Info);
     }
 
     @Override

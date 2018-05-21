@@ -1,4 +1,4 @@
-package com.inireksa.akademikakatek;
+package com.inireksa.akademikakatek.API;
 
 import com.inireksa.akademikakatek.Model.Value;
 
@@ -14,7 +14,7 @@ import retrofit2.http.POST;
 public interface InterfaceAPI {
 
     @FormUrlEncoded
-    @POST("login.php")
+    @POST("login")
     Call<Value> login(@Field("nama") String nama,
                       @Field("npm") String npm);
 }

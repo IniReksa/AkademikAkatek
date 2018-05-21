@@ -9,21 +9,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.inireksa.akademikakatek.Adapter.RvInfoMain;
+import com.inireksa.akademikakatek.Adapter.RvKlsFragment;
 import com.inireksa.akademikakatek.R;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InfoFragment extends Fragment {
+public class KelasFragment extends Fragment {
 
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     public String ActiveFragment = "";
 
 
-    public InfoFragment() {
+    public KelasFragment() {
         // Required empty public constructor
     }
 
@@ -31,12 +31,12 @@ public class InfoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_info, container, false);
-        ActiveFragment = "INFO";
-        recyclerView = (RecyclerView) v.findViewById(R.id.rvInfoFragment);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        View v = inflater.inflate(R.layout.fragment_kelas, container, false);
+        ActiveFragment = "KELAS";
+        recyclerView = (RecyclerView) v.findViewById(R.id.rvKelasFragment);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new RvInfoMain();
+        adapter = new RvKlsFragment();
         recyclerView.setAdapter(adapter);
         return v;
     }

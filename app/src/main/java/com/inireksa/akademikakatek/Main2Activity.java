@@ -24,9 +24,10 @@ import com.inireksa.akademikakatek.Fragment.TentangFragment;
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    Session session;
     FragmentTransaction fragmentTransaction;
-    public String ActiveFragment = "";
+    private String ActiveFragment = "";
+    HomeFragment homeFragment;
+    SharedPref sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +37,13 @@ public class Main2Activity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
+        sharedPref = new SharedPref(Main2Activity.this);
+
         HomeFragment homeFragment = new HomeFragment();
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.framelayout, homeFragment);
         fragmentTransaction.commit();
         ActiveFragment = "HOME";
-
-        session = new Session(Main2Activity.this.getApplicationContext());
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -83,7 +84,7 @@ public class Main2Activity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.menuHome) {
-            HomeFragment homeFragment = new HomeFragment();
+            homeFragment = new HomeFragment();
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.framelayout, homeFragment);
             fragmentTransaction.commit();
@@ -121,11 +122,8 @@ public class Main2Activity extends AppCompatActivity
                     .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            if (session.loggedin()){
-                                startActivity(new Intent(Main2Activity.this, LoginActivity.class));
-                                finish();
-                            }
-                            session.setLoggedin(false);
+                            sharedPref.saveBoolean(SharedPref.SP_SUDAH_LOGIN, false);
+                            startActivity(new Intent(Main2Activity.this, LoginActivity.class));
                             finish();
                         }
                     })
@@ -145,7 +143,6 @@ public class Main2Activity extends AppCompatActivity
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.framelayout, homeFragment);
             fragmentTransaction.commit();
-            ActiveFragment = "HOME";
 
         }else if (ActiveFragment.equals("HOME")) {
             new AlertDialog.Builder(this, R.style.CustomAlertDialog)

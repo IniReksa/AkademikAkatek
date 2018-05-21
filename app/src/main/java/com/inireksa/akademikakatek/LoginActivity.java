@@ -1,5 +1,6 @@
 package com.inireksa.akademikakatek;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 
@@ -9,40 +10,35 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 
-import com.inireksa.akademikakatek.Fragment.loginAdminFragment;
-import com.inireksa.akademikakatek.Fragment.loginFragment;
+import com.inireksa.akademikakatek.Fragment.LoginAdminFragment;
+import com.inireksa.akademikakatek.Fragment.LoginFragment;
 
 public class LoginActivity extends AppCompatActivity {
-
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
+
+    SharedPref sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        sharedPref = new SharedPref(LoginActivity.this);
+        if (sharedPref.getSudahLogin()){
+            startActivity(new Intent(LoginActivity.this, Main2Activity.class));
+            finish();
+        }
+        if (sharedPref.getAdminSudahLogin()){
+            startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+            finish();
+        }
 
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout =findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
@@ -63,10 +59,10 @@ public class LoginActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
            switch (position){
                case 0 :
-                   loginFragment tab1 = new loginFragment();
+                   LoginFragment tab1 = new LoginFragment();
                    return tab1;
                case 1 :
-                   loginAdminFragment tab2 = new loginAdminFragment();
+                   LoginAdminFragment tab2 = new LoginAdminFragment();
                    return tab2;
                default :
                    return null;
@@ -75,19 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 2 total pages.
             return 2;
         }
-
-//        @Override
-//        public CharSequence getPageTitle(int position) {
-//            switch (position){
-//                case 0:
-//                    return "Mahasiswa";
-//                case 1:
-//                    return "Admin";
-//            }
-//            return null;
-//        }
     }
 }

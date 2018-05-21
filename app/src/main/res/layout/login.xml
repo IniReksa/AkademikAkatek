@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_lock"
             android:drawablePadding="5dp"
-            android:hint="NPM"
+            android:hint="npm"
             android:inputType="numberPassword"
             android:maxLines="1"
             android:textColor="@color/colorPrimaryDark"

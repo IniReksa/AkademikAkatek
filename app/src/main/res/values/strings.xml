@@ -11,7 +11,7 @@
     <string name="tab_text_3">Tab 3</string>
     <string name="username">Username</string>
     <string name="pasword">Password</string>
-    <string name="npm">NPM</string>
+    <string name="npm">npm</string>
     <string name="nama_mahasiswa">Nama Mahasiswa</string>
     <string name="logout">Logout</string>
     <string name="title_activity_main2">Main2Activity</string>
@@ -22,4 +22,56 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="profile_kampus">Akademi Teknologi Bogor merupakan salah satu Perguruan Tinggi Swasta yang telah beridiri sejak 30 Agustus 2001 </string>
+    <string name="title_activity_main3">Main3Activity</string>
+
+    <array name="Mahasiswa">
+        <item>Semua Mahasiswa</item>
+        <item>Mahasiswa perkelas</item>
+    </array>
+
+    <array name="Kelas">
+        <item>TIK R-15</item>
+        <item>TIK R-16</item>
+        <item>TIK R-17</item>
+        <item>TIK K-15</item>
+        <item>TIK W-15</item>
+        <item>TIK K-16</item>
+        <item>TIK K-17</item>
+        <item>KOM R-15</item>
+    </array>
+
+    <array name="Matkul">
+        <item>Pemrograman Web</item>
+        <item>Pemrograman Visual Basic .NET</item>
+        <item>Logika Algoritma</item>
+        <item>Kalkulus</item>
+        <item>Pemrograman Java 1</item>
+        <item>Pemrograman Java 2</item>
+    </array>
+
+    <array name="Dosen">
+        <item>Muhamad Angga</item>
+        <item>Angga Reksa</item>
+        <item>Reksa Purwana</item>
+        <item>Reksa</item>
+        <item>Angga</item>
+    </array>
+
+    <array name="Sesi">
+        <item>1 (08.00 - 09.30)</item>
+        <item>2 (09.30 - 11.00)</item>
+    </array>
+
+    <array name="Ruangan">
+        <item>2.3.2</item>
+        <item>2.3.3</item>
+    </array>
+
+    <array name="Hari">
+        <item>Senin</item>
+        <item>Selasa</item>
+        <item>Rabu</item>
+        <item>Kamis</item>
+    </array>
+
 </resources>

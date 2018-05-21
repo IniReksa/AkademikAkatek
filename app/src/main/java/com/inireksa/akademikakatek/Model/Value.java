@@ -1,27 +1,21 @@
 package com.inireksa.akademikakatek.Model;
 
+import java.util.List;
+
 /**
  * Created by IniReksa on 4/27/2018.
  */
 
 public class Value {
 
-    String error;
-    String message;
+    public String Error;
+    public String Message;
+    public List<Mahasiswa> mahasiswa;
 
-    public String getError() {
-        return error;
+    public Value(String error, String message, List<Mahasiswa> mahasiswa) {
+        this.Error = error;
+        this.Message = message;
+        this.mahasiswa = mahasiswa;
     }
 
-    public void setError(String error) {
-        this.error = error;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

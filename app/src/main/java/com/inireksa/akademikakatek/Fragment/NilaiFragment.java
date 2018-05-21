@@ -1,6 +1,8 @@
 package com.inireksa.akademikakatek.Fragment;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +29,7 @@ public class NilaiFragment extends Fragment {
     private RecyclerView.Adapter adapter;
     private String[] semester={"1", "2", "3", "4", "5", "6"};
     private Dialog mydialog;
+    public String ActiveFragment = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,9 @@ public class NilaiFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        ActiveFragment = "NILAI";
+
         View v = inflater.inflate(R.layout.fragment_nilai, container, false);
         rvNilai = v.findViewById(R.id.rvNilai);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -60,6 +66,7 @@ public class NilaiFragment extends Fragment {
 
                     mydialog = new Dialog(getContext());
                     mydialog.setContentView(R.layout.dialog_nilai);
+                    mydialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     TextView dialogHadir = (TextView) mydialog.findViewById(R.id.nilaihadir);
                     TextView dialogTugas = (TextView) mydialog.findViewById(R.id.nilaitugas);
                     TextView dialogUts = (TextView) mydialog.findViewById(R.id.nilaiuts);

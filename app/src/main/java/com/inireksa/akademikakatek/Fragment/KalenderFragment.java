@@ -20,6 +20,7 @@ public class KalenderFragment extends Fragment {
 
     private RecyclerView rvKalender;
     private RecyclerView.Adapter adapter;
+    public String ActiveFragment = "";
 
 
     public KalenderFragment() {
@@ -30,6 +31,7 @@ public class KalenderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ActiveFragment = "KALENDER";
         View v = inflater.inflate(R.layout.fragment_kalender, container, false);
         rvKalender = (RecyclerView) v.findViewById(R.id.rvKalender);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);

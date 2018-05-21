@@ -6,17 +6,17 @@ package com.inireksa.akademikakatek.Model;
 
 public class Jadwal {
 
-    public String sesi;
-    public String matkul;
-    public String dosen;
-    public String ruangan;
-    public String hari;
+    public String Sesi;
+    public String Matkul;
+    public String Dosen;
+    public String Ruangan;
+    public String Hari;
 
     public Jadwal(String sesi, String matkul, String dosen, String ruangan, String hari) {
-        this.sesi = sesi;
-        this.matkul = matkul;
-        this.dosen = dosen;
-        this.ruangan = ruangan;
-        this.hari = hari;
+        this.Sesi = sesi;
+        this.Matkul = matkul;
+        this.Dosen = dosen;
+        this.Ruangan = ruangan;
+        this.Hari = hari;
     }
 }

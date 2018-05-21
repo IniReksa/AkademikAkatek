@@ -15,6 +15,8 @@ import com.inireksa.akademikakatek.R;
  */
 public class TentangFragment extends Fragment {
 
+    public String ActiveFragment = "";
+
 
     public TentangFragment() {
         // Required empty public constructor
@@ -24,6 +26,7 @@ public class TentangFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ActiveFragment = "TENTANG";
         View v = inflater.inflate(R.layout.fragment_tentang, container, false);
 
 

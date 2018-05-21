@@ -31,6 +31,7 @@ public class JadwalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_jadwal, container, false);
+        ActiveFragment = "JADWAL";
         recyclerView = (RecyclerView) v.findViewById(R.id.rvJadwalFragment);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);

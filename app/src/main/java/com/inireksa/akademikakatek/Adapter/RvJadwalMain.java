@@ -40,11 +40,11 @@ public class RvJadwalMain extends RecyclerView.Adapter<RvJadwalMain.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Jadwal itemjadwal = jadwals.get(position);
-        holder.sesi.setText(itemjadwal.sesi);
-        holder.matkul.setText(itemjadwal.matkul);
-        holder.dosen.setText(itemjadwal.dosen);
-        holder.ruangan.setText(itemjadwal.ruangan);
-        holder.hari.setText(itemjadwal.hari);
+        holder.sesi.setText(itemjadwal.Sesi);
+        holder.matkul.setText(itemjadwal.Matkul);
+        holder.dosen.setText(itemjadwal.Dosen);
+        holder.ruangan.setText(itemjadwal.Ruangan);
+        holder.hari.setText(itemjadwal.Hari);
     }
 
     @Override

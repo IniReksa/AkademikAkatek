@@ -6,19 +6,19 @@ package com.inireksa.akademikakatek.Model;
 
 public class Nilai {
 
-    public String matkul;
-    public String kehadiran;
-    public String tugas;
-    public String uts;
-    public String uas;
-    public String nilaiakhir;
+    public String Matkul;
+    public String Kehadiran;
+    public String Tugas;
+    public String UTS;
+    public String UAS;
+    public String NilaiAkhir;
 
     public Nilai(String matkul, String kehadiran, String tugas, String uts, String uas, String nilaiakhir) {
-        this.matkul = matkul;
-        this.kehadiran = kehadiran;
-        this.tugas = tugas;
-        this.uts = uts;
-        this.uas = uas;
-        this.nilaiakhir = nilaiakhir;
+        this.Matkul = matkul;
+        this.Kehadiran = kehadiran;
+        this.Tugas = tugas;
+        this.UTS = uts;
+        this.UAS = uas;
+        this.NilaiAkhir = nilaiakhir;
     }
 }
