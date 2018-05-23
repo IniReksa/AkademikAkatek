@@ -38,4 +38,10 @@ public interface InterfaceAPI {
     Call<InfoResponse> info (@Field("kelas") String kelas,
                                @Field("jurusan") String jurusan,
                                @Field("angkatan") String angkatan);
+
+    @FormUrlEncoded
+    @POST("infomain")
+    Call<InfoResponse> infomain (@Field("kelas") String kelas,
+                             @Field("jurusan") String jurusan,
+                             @Field("angkatan") String angkatan);
 }

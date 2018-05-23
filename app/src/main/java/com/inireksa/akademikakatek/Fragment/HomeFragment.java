@@ -236,7 +236,7 @@ public class HomeFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         InterfaceAPI api = retrofit.create(InterfaceAPI.class);
-        Call<InfoResponse> call = api.info(kelas, jurusan, angkatan);
+        Call<InfoResponse> call = api.infomain(kelas, jurusan, angkatan);
         call.enqueue(new Callback<InfoResponse>() {
             @Override
             public void onResponse(Call<InfoResponse> call, Response<InfoResponse> response) {
