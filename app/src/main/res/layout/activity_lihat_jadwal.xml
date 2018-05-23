@@ -15,6 +15,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/rvJadwalActivity"/>
+
+        <ProgressBar
+            android:theme="@style/InputLayout"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:visibility="invisible"
+            android:id="@+id/progresJadwalAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp" />
     </ScrollView>
 
 </LinearLayout>

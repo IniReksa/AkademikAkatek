@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import android.widget.Toast;
 import com.inireksa.akademikakatek.API.ApiUrl;
 import com.inireksa.akademikakatek.API.InterfaceAPI;
 import com.inireksa.akademikakatek.Main2Activity;
-import com.inireksa.akademikakatek.Model.Value;
+import com.inireksa.akademikakatek.Model.LoginResponse;
 import com.inireksa.akademikakatek.R;
 import com.inireksa.akademikakatek.SharedPref;
 
@@ -87,35 +86,36 @@ LoginFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         InterfaceAPI api = retrofit.create(InterfaceAPI.class);
-        Call<Value> call = api.login(nama, npm);
-        call.enqueue(new Callback<Value>() {
+        Call<LoginResponse> call = api.login(nama, npm);
+        call.enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<Value> call, Response<Value> response) {
-                String error, Message, NamaMhs, Kelas, Jurusan, Angkatan, Alamat, TglLahir, JenisKelamin, FotoMhs, CreatedBy, CreatedAt, UpdateBy, UpdateAt;
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                String Error, Message, NamaMhs, Kelas, Jurusan, Angkatan, Alamat, TglLahir, JenisKelamin, FotoMhs, CreatedBy, CreatedAt, UpdateBy, UpdateAt;
                 int Npm, NoTlp;
 
-                error = response.body().Error;
+                Error = response.body().Error;
                 Message = response.body().Message;
-                NamaMhs = response.body().mahasiswa.get(0).NamaMhs;
-                Npm = response.body().mahasiswa.get(0).Npm;
-                Kelas = response.body().mahasiswa.get(0).Kelas;
-                Jurusan = response.body().mahasiswa.get(0).Jurusan;
-                Angkatan = response.body().mahasiswa.get(0).Angkatan;
-                Alamat = response.body().mahasiswa.get(0).Alamat;
-                TglLahir = response.body().mahasiswa.get(0).TglLahir;
-                JenisKelamin = response.body().mahasiswa.get(0).JenisKelamin;
-                NoTlp = response.body().mahasiswa.get(0).NoTlp;
-                FotoMhs = response.body().mahasiswa.get(0).FotoMhs;
-                CreatedBy = response.body().mahasiswa.get(0).CreatedBy;
-                CreatedAt = response.body().mahasiswa.get(0).CreatedAt;
-                UpdateAt = response.body().mahasiswa.get(0).UpdatedAt;
-                UpdateBy = response.body().mahasiswa.get(0).UpdatedBy;
 
-                if (error.equals("0")){
+                if (Error.equals("0")){
                     Toast.makeText(getActivity(), Message, Toast.LENGTH_SHORT).show();
                     prograsBar.setVisibility(View.INVISIBLE);
                     btnLogin.setVisibility(View.VISIBLE);
                     sharedPref.saveBoolean(SharedPref.SP_SUDAH_LOGIN, true);
+
+                    NamaMhs = response.body().mahasiswa.NamaMhs;
+                    Npm = response.body().mahasiswa.Npm;
+                    Kelas = response.body().mahasiswa.Kelas;
+                    Jurusan = response.body().mahasiswa.Jurusan;
+                    Angkatan = response.body().mahasiswa.Angkatan;
+                    Alamat = response.body().mahasiswa.Alamat;
+                    TglLahir = response.body().mahasiswa.TglLahir;
+                    JenisKelamin = response.body().mahasiswa.JenisKelamin;
+                    NoTlp = response.body().mahasiswa.NoTlp;
+                    FotoMhs = response.body().mahasiswa.FotoMhs;
+                    CreatedBy = response.body().mahasiswa.CreatedBy;
+                    CreatedAt = response.body().mahasiswa.CreatedAt;
+                    UpdateAt = response.body().mahasiswa.UpdatedAt;
+                    UpdateBy = response.body().mahasiswa.UpdatedBy;
 
                     simpanDataMahasiswa(NamaMhs, Npm, Kelas, Jurusan, Angkatan, Alamat, TglLahir, JenisKelamin, NoTlp, FotoMhs, CreatedBy, CreatedAt, UpdateBy, UpdateAt);
 
@@ -123,7 +123,7 @@ LoginFragment extends Fragment {
                     getActivity().startActivity(intent);
                     getActivity().finish();
 
-                } if (error.equals("1")) {
+                } if (Error.equals("1")) {
                     prograsBar.setVisibility(View.INVISIBLE);
                     btnLogin.setVisibility(View.VISIBLE);
                     Toast.makeText(getActivity(), Message, Toast.LENGTH_SHORT).show();
@@ -131,11 +131,10 @@ LoginFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Value> call, Throwable t) {
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
                 prograsBar.setVisibility(View.INVISIBLE);
                 btnLogin.setVisibility(View.VISIBLE);
                 Toast.makeText(getActivity(), "Jaringan Error", Toast.LENGTH_SHORT).show();
-                t.getStackTrace();
             }
         });
     }

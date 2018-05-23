@@ -5,11 +5,24 @@ package com.inireksa.akademikakatek.Model;
  */
 
 public class Info {
-    public String Tanggal;
-    public String Info;
+    public String Angkatan;
+    public String Jurusan;
+    public String IsiInfo;
+    public String Kelas;
+    public String CreatedBy;
+    public String CreatedAt;
+    public String UpdateBy;
+    public String UpdateAt;
 
-    public Info(String tanggal, String info) {
-        this.Tanggal = tanggal;
-        this.Info = info;
+    public Info(String angkatan, String jurusan, String isiInfo, String kelas, String createdBy,
+                String createdAt, String updateBy, String updateAt) {
+        this.Angkatan = angkatan;
+        this.Jurusan = jurusan;
+        this.IsiInfo = isiInfo;
+        this.Kelas = kelas;
+        this.CreatedBy = createdBy;
+        this.CreatedAt = createdAt;
+        this.UpdateBy = updateBy;
+        this.UpdateAt = updateAt;
     }
 }

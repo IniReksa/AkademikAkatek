@@ -1,5 +1,6 @@
 package com.inireksa.akademikakatek.Adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.inireksa.akademikakatek.Model.Mahasiswa;
 import com.inireksa.akademikakatek.R;
 
@@ -19,7 +22,13 @@ import java.util.List;
 
 public class RvKlsFragment extends RecyclerView.Adapter<RvKlsFragment.MyViewHolder> {
 
-    List<Mahasiswa> mahasiswas;
+    private Context context;
+    private List<Mahasiswa> mahasiswas;
+
+    public RvKlsFragment(Context context, List<Mahasiswa> mahasiswas) {
+        this.context = context;
+        this.mahasiswas = mahasiswas;
+    }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -31,12 +40,14 @@ public class RvKlsFragment extends RecyclerView.Adapter<RvKlsFragment.MyViewHold
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-
         Mahasiswa itemMhs = mahasiswas.get(position);
         holder.namaMhs.setText(itemMhs.NamaMhs);
-        holder.tlpMhs.setText(itemMhs.NoTlp);
+        holder.tlpMhs.setText(toString().valueOf(itemMhs.NoTlp));
         holder.alamatMhs.setText(itemMhs.Alamat);
-        holder.ftMhs.setImageResource(R.drawable.ic_mhs);
+        Glide.with(context)
+                .load(itemMhs.FotoMhs)
+                .apply(RequestOptions.circleCropTransform())
+                .into(holder.ftMhs);
     }
 
     @Override

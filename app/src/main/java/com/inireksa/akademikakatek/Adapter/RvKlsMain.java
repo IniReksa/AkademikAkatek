@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.inireksa.akademikakatek.Model.Mahasiswa;
 import com.inireksa.akademikakatek.R;
 
@@ -37,7 +40,10 @@ public class RvKlsMain extends RecyclerView.Adapter<RvKlsMain.MyViewHolder> {
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Mahasiswa itemKelas = mahasiswas.get(position);
-        holder.img.setImageResource(R.drawable.ic_mhs);
+        Glide.with(context)
+                .load(itemKelas.FotoMhs)
+                .apply(RequestOptions.circleCropTransform())
+                .into(holder.img);
     }
 
     @Override
@@ -52,7 +58,7 @@ public class RvKlsMain extends RecyclerView.Adapter<RvKlsMain.MyViewHolder> {
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            img = (ImageView) itemView.findViewById(R.id.img_kelas_main);
+            img = itemView.findViewById(R.id.img_kelas_main);
         }
     }
 

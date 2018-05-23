@@ -1,5 +1,6 @@
 package com.inireksa.akademikakatek.Adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,15 +19,12 @@ import java.util.List;
 
 public class RvJadwalMain extends RecyclerView.Adapter<RvJadwalMain.ViewHolder> {
 
-    List<Jadwal> jadwals;
+    private Context context;
+    private List<Jadwal> jadwals;
 
-    public RvJadwalMain(){
-        super();
-        jadwals = new ArrayList<Jadwal>();
-        jadwals.add(new Jadwal("8", "Pemrograman Visual Basic .NET 2010", "Muhamad Angga Reksa", "2.3.3", "Selasa"));
-        jadwals.add(new Jadwal("4", "Pemrograman Visual Basic .NET 2010", "Muhamad Angga Reksa", "2.3.3", "Rabu"));
-        jadwals.add(new Jadwal("5", "Pemrograman Web ", "Muhamad Angga Reksa", "2.6.3", "kamis"));
-
+    public RvJadwalMain(Context context, List<Jadwal> jadwals) {
+        this.context = context;
+        this.jadwals = jadwals;
     }
 
     @Override
@@ -41,8 +39,8 @@ public class RvJadwalMain extends RecyclerView.Adapter<RvJadwalMain.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         Jadwal itemjadwal = jadwals.get(position);
         holder.sesi.setText(itemjadwal.Sesi);
-        holder.matkul.setText(itemjadwal.Matkul);
-        holder.dosen.setText(itemjadwal.Dosen);
+        holder.matkul.setText(itemjadwal.NamaMk);
+        holder.dosen.setText(itemjadwal.NamaDosen);
         holder.ruangan.setText(itemjadwal.Ruangan);
         holder.hari.setText(itemjadwal.Hari);
     }
@@ -59,11 +57,11 @@ public class RvJadwalMain extends RecyclerView.Adapter<RvJadwalMain.ViewHolder> 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            sesi = (TextView) itemView.findViewById(R.id.sesi);
-            matkul = (TextView) itemView.findViewById(R.id.matkul);
-            dosen = (TextView) itemView.findViewById(R.id.dosen);
-            ruangan = (TextView) itemView.findViewById(R.id.ruangan);
-            hari = (TextView) itemView.findViewById(R.id.jadwalHari);
+            sesi = itemView.findViewById(R.id.sesi);
+            matkul = itemView.findViewById(R.id.matkul);
+            dosen = itemView.findViewById(R.id.dosen);
+            ruangan = itemView.findViewById(R.id.ruangan);
+            hari = itemView.findViewById(R.id.jadwalHari);
 
         }
     }

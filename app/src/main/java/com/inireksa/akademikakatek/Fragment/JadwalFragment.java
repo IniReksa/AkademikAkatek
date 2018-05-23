@@ -8,9 +8,24 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.inireksa.akademikakatek.API.ApiUrl;
+import com.inireksa.akademikakatek.API.InterfaceAPI;
 import com.inireksa.akademikakatek.Adapter.RvJadwalMain;
+import com.inireksa.akademikakatek.Model.Jadwal;
+import com.inireksa.akademikakatek.Model.JadwalResponse;
 import com.inireksa.akademikakatek.R;
+import com.inireksa.akademikakatek.SharedPref;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**
@@ -21,6 +36,9 @@ public class JadwalFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     public String ActiveFragment = "JADWAL";
+    ProgressBar progressBar;
+
+    SharedPref sharedPref;
 
     public JadwalFragment() {
         // Required empty public constructor
@@ -32,13 +50,52 @@ public class JadwalFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_jadwal, container, false);
         ActiveFragment = "JADWAL";
-        recyclerView = (RecyclerView) v.findViewById(R.id.rvJadwalFragment);
+
+        sharedPref = new SharedPref(getContext());
+
+        progressBar = v.findViewById(R.id.progresJadwalFragment);
+        recyclerView = v.findViewById(R.id.rvJadwalFragment);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new RvJadwalMain();
-        recyclerView.setAdapter(adapter);
-
+        ambildatajadwal();
         return v;
+    }
+
+    private void ambildatajadwal() {
+        String kelas = sharedPref.getKelas();
+        String jurusan = sharedPref.getJurusan();
+        String angkatan = sharedPref.getAngkatan();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApiUrl.URL_ROOT_LOCAL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        InterfaceAPI api = retrofit.create(InterfaceAPI.class);
+        Call<JadwalResponse> call = api.jadwal(kelas, jurusan, angkatan);
+        call.enqueue(new Callback<JadwalResponse>() {
+            @Override
+            public void onResponse(Call<JadwalResponse> call, Response<JadwalResponse> response) {
+
+                String error = response.body().Error;
+                String message = response.body().Message;
+
+                if (error.equals("0")){
+                    List<Jadwal> jadwals = response.body().jadwal;
+                    adapter = new RvJadwalMain(getContext(), jadwals);
+                    recyclerView.setAdapter(adapter);
+
+                } if (error.equals("1")){
+                    progressBar.setVisibility(View.VISIBLE);
+                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JadwalResponse> call, Throwable t) {
+                progressBar.setVisibility(View.VISIBLE);
+                Toast.makeText(getContext(), "Jaringan Error", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

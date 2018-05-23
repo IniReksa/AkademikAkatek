@@ -6,7 +6,6 @@ package com.inireksa.akademikakatek.Model;
 
 public class Mahasiswa {
 
-
     public int Npm;
     public String NamaMhs;
     public String Kelas;

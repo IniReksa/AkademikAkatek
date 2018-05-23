@@ -1,5 +1,6 @@
 package com.inireksa.akademikakatek.Adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +19,12 @@ import java.util.List;
 
 public class RvInfoMain extends RecyclerView.Adapter<RvInfoMain.ViewHolder> {
 
-    List<Info> infos;
+    private Context context;
+    private List<Info> infos;
 
-    public RvInfoMain(){
-        super();
-        infos = new ArrayList<Info>();
-        infos.add(new Info("2-3-2018", "UTS akan dilaksanakan pada diharapkan semua mahasiswa sudah memenuhi persyarakat admin"));
-        infos.add(new Info("20-5-1028", "Cek Sinyal"));
+    public RvInfoMain(Context context, List<Info> infos) {
+        this.context = context;
+        this.infos = infos;
     }
 
     @Override
@@ -38,8 +38,8 @@ public class RvInfoMain extends RecyclerView.Adapter<RvInfoMain.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Info itemInfo = infos.get(position);
-        holder.tanggal.setText(itemInfo.Tanggal);
-        holder.info.setText(itemInfo.Info);
+        holder.tanggal.setText(itemInfo.CreatedAt);
+        holder.info.setText(itemInfo.IsiInfo);
     }
 
     @Override

@@ -6,16 +6,15 @@ import java.util.List;
  * Created by IniReksa on 4/27/2018.
  */
 
-public class Value {
+public class InfoResponse {
 
     public String Error;
     public String Message;
-    public List<Mahasiswa> mahasiswa;
+    public List<Info> info;
 
-    public Value(String error, String message, List<Mahasiswa> mahasiswa) {
+    public InfoResponse(String error, String message, List<Info> info) {
         this.Error = error;
         this.Message = message;
-        this.mahasiswa = mahasiswa;
+        this.info = info;
     }
-
 }
