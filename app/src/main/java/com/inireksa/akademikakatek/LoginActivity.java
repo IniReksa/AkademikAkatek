@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
         sharedPref = new SharedPref(LoginActivity.this);
         if (sharedPref.getSudahLogin()){
-            startActivity(new Intent(LoginActivity.this, Main2Activity.class));
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
         if (sharedPref.getAdminSudahLogin()){

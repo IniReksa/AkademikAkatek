@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.inireksa.akademikakatek.API.ApiUrl;
 import com.inireksa.akademikakatek.API.InterfaceAPI;
-import com.inireksa.akademikakatek.Main2Activity;
+import com.inireksa.akademikakatek.MainActivity;
 import com.inireksa.akademikakatek.Model.LoginResponse;
 import com.inireksa.akademikakatek.R;
 import com.inireksa.akademikakatek.SharedPref;
@@ -119,7 +119,7 @@ LoginFragment extends Fragment {
 
                     simpanDataMahasiswa(NamaMhs, Npm, Kelas, Jurusan, Angkatan, Alamat, TglLahir, JenisKelamin, NoTlp, FotoMhs, CreatedBy, CreatedAt, UpdateBy, UpdateAt);
 
-                    Intent intent = new Intent(getActivity(), Main2Activity.class);
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
                     getActivity().startActivity(intent);
                     getActivity().finish();
 

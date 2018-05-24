@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.inireksa.akademikakatek.AdminActivity;
-import com.inireksa.akademikakatek.Main2Activity;
 import com.inireksa.akademikakatek.R;
 import com.inireksa.akademikakatek.SharedPref;
 
@@ -47,7 +46,7 @@ public class LoginAdminFragment extends Fragment {
 //            getActivity().finish();
 //        }
 //        if (sharedPref.getSudahLogin()) {
-//            startActivity(new Intent(getContext(), Main2Activity.class));
+//            startActivity(new Intent(getContext(), MainActivity.class));
 //            getActivity().finish();
 //        }
 

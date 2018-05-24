@@ -44,7 +44,6 @@ public class AdminActivity extends AppCompatActivity {
 
         recyclerViewMain = findViewById(R.id.rvHomeAdmin);
         recyclerViewMain.setHasFixedSize(true);
-//
         sharedPref = new SharedPref(AdminActivity.this);
 
         layoutManager = new GridLayoutManager(this, 2);
@@ -101,7 +100,7 @@ public class AdminActivity extends AppCompatActivity {
                     info.setError("Isi Info terlebih dahulu");
                     return;
                 }
-                    Toast.makeText(AdminActivity.this, "Info Terkirim", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminActivity.this, "Info Terkirim", Toast.LENGTH_SHORT).show();
             }
         });
         mydialog.show();

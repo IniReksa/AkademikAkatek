@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView, rvJadwalMain, rvInfo;
     private RecyclerView.Adapter adapter, adapterJadwal, adapterInfo;
     FragmentTransaction fragmentTransaction;
-    public String ActiveFragment = "";
+//    public String ActiveFragment = "";
     private TextView npmHome, namaHome;
     private ImageView imgMhs;
     ProgressBar progressKelas, progressJadwal, progressInfo;
@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
-        ActiveFragment = "HOME";
+//        ActiveFragment = "HOME";
 
         sharedPref = new SharedPref(getContext());
 
@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment {
                 fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, jadwalFragment);
                 fragmentTransaction.commit();
-                ActiveFragment = "JADWAL";
+//                ActiveFragment = "JADWAL";
             }
         });
         btnlistinfo.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +113,7 @@ public class HomeFragment extends Fragment {
                 fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, infoFragment);
                 fragmentTransaction.commit();
-                ActiveFragment = "INFO";
+//                ActiveFragment = "INFO";
             }
         });
 
@@ -133,7 +133,7 @@ public class HomeFragment extends Fragment {
                     fragmentTransaction = getFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.framelayout, kelasFragment);
                     fragmentTransaction.commit();
-                    ActiveFragment = "KELAS";
+//                    ActiveFragment = "KELAS";
                 }
                 return false;
             }
@@ -166,25 +166,28 @@ public class HomeFragment extends Fragment {
         call.enqueue(new Callback<MahasiswaResponse>() {
             @Override
             public void onResponse(Call<MahasiswaResponse> call, Response<MahasiswaResponse> response) {
-
                 String error = response.body().Error;
                 String Message = response.body().Message;
+                List<Mahasiswa> mahasiswas = response.body().mahasiswa;
 
-                if (error.equals("0")) {
-                    List<Mahasiswa> mahasiswas = response.body().mahasiswa;
-                    adapter = new RvKlsMain(getContext(), mahasiswas);
-                    recyclerView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-                } if (error.equals("1")){
-                    progressKelas.setVisibility(View.VISIBLE);
-                    Toast.makeText(getActivity(), Message, Toast.LENGTH_SHORT).show();
+                if (mahasiswas != null) {
+                    if (error.equals("0")) {
+                        progressKelas.setVisibility(View.GONE);
+                        adapter = new RvKlsMain(getContext(), mahasiswas);
+                        recyclerView.setAdapter(adapter);
+                    }
+                    if (error.equals("1")) {
+                        //                    progressKelas.setVisibility(View.VISIBLE);
+                        Toast.makeText(getActivity(), Message, Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Tidak Ada Mahasiswa", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<MahasiswaResponse> call, Throwable t) {
-
-                progressKelas.setVisibility(View.VISIBLE);
+//                progressKelas.setVisibility(View.VISIBLE);
                 Toast.makeText(getContext(), "Jaringan Error", Toast.LENGTH_SHORT).show();
             }
         });
@@ -207,20 +210,26 @@ public class HomeFragment extends Fragment {
 
                 String error = response.body().Error;
                 String message = response.body().Message;
+                List<Jadwal> jadwals = response.body().jadwal;
 
-                if (error.equals("0")){
-                    List<Jadwal> jadwals = response.body().jadwal;
-                    adapterJadwal = new RvJadwalMain(getContext(), jadwals);
-                    rvJadwalMain.setAdapter(adapterJadwal);
-                } if (error.equals("1")){
-                    progressJadwal.setVisibility(View.VISIBLE);
-                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                if (jadwals != null) {
+                    if (error.equals("0")) {
+                        progressJadwal.setVisibility(View.GONE);
+                        adapterJadwal = new RvJadwalMain(getContext(), jadwals);
+                        rvJadwalMain.setAdapter(adapterJadwal);
+                    }
+                    if (error.equals("1")) {
+//                    progressJadwal.setVisibility(View.VISIBLE);
+                        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Tidak Ada Jadwal", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<JadwalResponse> call, Throwable t) {
-                progressJadwal.setVisibility(View.VISIBLE);
+//                progressJadwal.setVisibility(View.VISIBLE);
                 Toast.makeText(getContext(), "Jaringan Error", Toast.LENGTH_SHORT).show();
             }
         });
@@ -240,23 +249,29 @@ public class HomeFragment extends Fragment {
         call.enqueue(new Callback<InfoResponse>() {
             @Override
             public void onResponse(Call<InfoResponse> call, Response<InfoResponse> response) {
-                String error = response.body().Error;
-                String message = response.body().Message;
 
-                if (error.equals("0")){
-                    List<Info> infos = response.body().info;
-                    adapterInfo = new RvInfoMain(getContext(), infos);
-                    rvInfo.setAdapter(adapterInfo);
+                    String error = response.body().Error;
+                    String message = response.body().Message;
+                     List<Info> infos = response.body().info;
 
-                } if (error.equals("1")){
-                    progressInfo.setVisibility(View.VISIBLE);
-                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-                }
+                     if (infos != null) {
+                         if (error.equals("0")) {
+                             progressInfo.setVisibility(View.GONE);
+                             adapterInfo = new RvInfoMain(getContext(), infos);
+                             rvInfo.setAdapter(adapterInfo);
+                         }
+                         if (error.equals("1")) {
+//                    progressInfo.setVisibility(View.VISIBLE);
+                             Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                         }
+                     } else {
+                         Toast.makeText(getContext(), "Tidak Ada Info", Toast.LENGTH_SHORT).show();
+                     }
             }
 
             @Override
             public void onFailure(Call<InfoResponse> call, Throwable t) {
-                progressInfo.setVisibility(View.VISIBLE);
+//                progressInfo.setVisibility(View.VISIBLE);
                 Toast.makeText(getContext(), "Jaringan Error", Toast.LENGTH_SHORT).show();
             }
         });

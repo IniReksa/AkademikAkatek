@@ -21,11 +21,11 @@ import com.inireksa.akademikakatek.Fragment.KalenderFragment;
 import com.inireksa.akademikakatek.Fragment.NilaiFragment;
 import com.inireksa.akademikakatek.Fragment.TentangFragment;
 
-public class Main2Activity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     FragmentTransaction fragmentTransaction;
-    private String ActiveFragment = "";
+//  String ActiveFragment = "";
     HomeFragment homeFragment;
     SharedPref sharedPref;
 
@@ -37,13 +37,13 @@ public class Main2Activity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
-        sharedPref = new SharedPref(Main2Activity.this);
+        sharedPref = new SharedPref(MainActivity.this);
 
         HomeFragment homeFragment = new HomeFragment();
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.framelayout, homeFragment);
         fragmentTransaction.commit();
-        ActiveFragment = "HOME";
+//        ActiveFragment = "HOME";
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -70,7 +70,7 @@ public class Main2Activity extends AppCompatActivity
                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, infoFragment);
                 fragmentTransaction.commit();
-                ActiveFragment = "INFO";
+//                ActiveFragment = "INFO";
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -88,32 +88,32 @@ public class Main2Activity extends AppCompatActivity
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.framelayout, homeFragment);
             fragmentTransaction.commit();
-            ActiveFragment = "HOME";
+//            ActiveFragment = "HOME";
         } else if (id == R.id.menuJadwal) {
             JadwalFragment jadwalFragment = new JadwalFragment();
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.framelayout, jadwalFragment);
             fragmentTransaction.commit();
-            ActiveFragment = "JADWAL";
+//            ActiveFragment = "JADWAL";
         } else if (id == R.id.menuNilai) {
             NilaiFragment nilaiFragment = new NilaiFragment();
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.framelayout, nilaiFragment);
             fragmentTransaction.commit();
-            ActiveFragment = "NILAI";
+//            ActiveFragment = "NILAI";
         } else if (id == R.id.menukalender) {
             KalenderFragment kalenderFragment = new KalenderFragment();
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.framelayout, kalenderFragment);
             fragmentTransaction.commit();
-            ActiveFragment = "KALENDER";
+//            ActiveFragment = "KALENDER";
 
         }else if (id == R.id.menuTentang) {
             TentangFragment tentangFragment = new TentangFragment();
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.framelayout, tentangFragment);
             fragmentTransaction.commit();
-            ActiveFragment = "TENTANG";
+//            ActiveFragment = "TENTANG";
 
         }else if (id == R.id.logout){
             new AlertDialog.Builder(this, R.style.CustomAlertDialog)
@@ -123,7 +123,7 @@ public class Main2Activity extends AppCompatActivity
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             sharedPref.saveBoolean(SharedPref.SP_SUDAH_LOGIN, false);
-                            startActivity(new Intent(Main2Activity.this, LoginActivity.class));
+                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
                             finish();
                         }
                     })
@@ -138,34 +138,32 @@ public class Main2Activity extends AppCompatActivity
     @Override
     public void onBackPressed() {
 
-        if (!ActiveFragment.equals("HOME")){
-            HomeFragment homeFragment = new HomeFragment();
-            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.framelayout, homeFragment);
-            fragmentTransaction.commit();
+//        if (!ActiveFragment.equals("HOME")){
+//            HomeFragment homeFragment = new HomeFragment();
+//            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.framelayout, homeFragment);
+//            fragmentTransaction.commit();
+//        }else if (ActiveFragment.equals("HOME")) {
 
-        }else if (ActiveFragment.equals("HOME")) {
-            new AlertDialog.Builder(this, R.style.CustomAlertDialog)
-                    .setMessage("Yakin ingin keluar dari aplikasi?")
-                    .setCancelable(false)
-                    .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            finish();
-                        }
-                    })
-                    .setNegativeButton("Tidak", null)
-                    .show();
-        } else {
+//        } else {
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             if (drawer.isDrawerOpen(GravityCompat.START)) {
                 drawer.closeDrawer(GravityCompat.START);
-
             } else {
-
-                super.onBackPressed();
+                new AlertDialog.Builder(this, R.style.CustomAlertDialog)
+                        .setMessage("Yakin ingin keluar dari aplikasi?")
+                        .setCancelable(false)
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("Tidak", null)
+                        .show();
+//                super.onBackPressed();
             }
         }
 
     }
-}
+//}

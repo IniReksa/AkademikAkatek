@@ -95,7 +95,6 @@
                         android:theme="@style/InputLayout"
                         android:layout_gravity="center_horizontal"
                         android:layout_margin="5dp"
-                        android:visibility="invisible"
                         android:id="@+id/progresKlsMain"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp" />
@@ -154,7 +153,6 @@
                             android:theme="@style/InputLayout"
                             android:layout_gravity="center_horizontal"
                             android:layout_margin="5dp"
-                            android:visibility="gone"
                             android:id="@+id/progresJadwalMain"
                             android:layout_width="wrap_content"
                             android:layout_height="50dp" />
@@ -228,7 +226,6 @@
                             android:theme="@style/InputLayout"
                             android:layout_gravity="center_horizontal"
                             android:layout_margin="5dp"
-                            android:visibility="gone"
                             android:id="@+id/progresInfoMain"
                             android:layout_width="wrap_content"
                             android:layout_height="50dp" />
