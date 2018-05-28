@@ -11,15 +11,25 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.inireksa.akademikakatek.API.ApiUrl;
+import com.inireksa.akademikakatek.API.InterfaceAPI;
 import com.inireksa.akademikakatek.Fragment.HomeFragment;
 import com.inireksa.akademikakatek.Fragment.InfoFragment;
 import com.inireksa.akademikakatek.Fragment.JadwalFragment;
 import com.inireksa.akademikakatek.Fragment.KalenderFragment;
 import com.inireksa.akademikakatek.Fragment.NilaiFragment;
 import com.inireksa.akademikakatek.Fragment.TentangFragment;
+import com.inireksa.akademikakatek.Model.ServerResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -53,6 +63,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        simpantoken();
     }
 
     @Override
@@ -135,6 +147,35 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void simpantoken() {
+        String token = sharedPref.getDeviceToken();
+        if (token != null){
+            String npm = String.valueOf(sharedPref.getNpm());
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(ApiUrl.URL_ROOT_LOCAL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            InterfaceAPI api = retrofit.create(InterfaceAPI.class);
+            Call<ServerResponse> call = api.tambahtoken(npm, token);
+            call.enqueue(new Callback<ServerResponse>() {
+                @Override
+                public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                    Log.d("Token", response.body().Message);
+                }
+
+                @Override
+                public void onFailure(Call<ServerResponse> call, Throwable t) {
+
+                }
+            });
+        } else {
+            Log.d("Token", "Token Belum dapat");
+        }
+
+    }
+
     @Override
     public void onBackPressed() {
 
@@ -166,4 +207,4 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
-//}
+

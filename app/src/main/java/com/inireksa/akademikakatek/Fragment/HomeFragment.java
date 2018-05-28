@@ -75,6 +75,9 @@ public class HomeFragment extends Fragment {
                 .into(imgMhs);
         namaHome.setText(sharedPref.getNama());
         npmHome.setText(Integer.toString(sharedPref.getNpm()));
+        if (sharedPref.getFotoMhs().equals("")){
+            Toast.makeText(getContext(), "Tidak Ada Foto", Toast.LENGTH_SHORT).show();
+        }
 
         progressKelas = v.findViewById(R.id.progresKlsMain);
         recyclerView = v.findViewById(R.id.rvKelas);

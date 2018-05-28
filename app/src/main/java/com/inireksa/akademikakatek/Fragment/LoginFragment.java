@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import com.inireksa.akademikakatek.API.ApiUrl;
 import com.inireksa.akademikakatek.API.InterfaceAPI;
 import com.inireksa.akademikakatek.MainActivity;
 import com.inireksa.akademikakatek.Model.LoginResponse;
+import com.inireksa.akademikakatek.Model.ServerResponse;
+import com.inireksa.akademikakatek.MyFirebaseInstanceIDService;
 import com.inireksa.akademikakatek.R;
 import com.inireksa.akademikakatek.SharedPref;
 
@@ -36,7 +39,6 @@ LoginFragment extends Fragment {
     private TextInputEditText eTNama, eTNpm;
     private Button btnLogin;
     private ProgressBar prograsBar;
-    public static final String URL = "http://inireksa.000webhostapp.com/akademik/";
 
     private SharedPref sharedPref;
 
@@ -68,7 +70,7 @@ LoginFragment extends Fragment {
         String npm = eTNpm.getText().toString();
 
         if (TextUtils.isEmpty(nama)){
-            eTNama.setError("NamaMhs Tidak Boleh Kosong");
+            eTNama.setError("Nama Tidak Boleh Kosong");
             btnLogin.setVisibility(View.VISIBLE);
             prograsBar.setVisibility(View.INVISIBLE);
             return;

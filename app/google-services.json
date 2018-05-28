@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "18082469133",
+    "firebase_url": "https://akademikakatek.firebaseio.com",
+    "project_id": "akademikakatek",
+    "storage_bucket": "akademikakatek.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18082469133:android:b6a807397aa63b18",
+        "android_client_info": {
+          "package_name": "com.inireksa.akademikakatek"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "18082469133-uo1663ks1frejl9vqv357qcnevjlsg5k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.inireksa.akademikakatek",
+            "certificate_hash": "1190138f4aad5ac74aec5c79008693544aea472d"
+          }
+        },
+        {
+          "client_id": "18082469133-kmicra9dv998ulnp7etrm83m8r1m4q71.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "18082469133-kmicra9dv998ulnp7etrm83m8r1m4q71.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAdv7-2rxOkLfsHJzoRIuN0DarLhpv8p8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "18082469133-kmicra9dv998ulnp7etrm83m8r1m4q71.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

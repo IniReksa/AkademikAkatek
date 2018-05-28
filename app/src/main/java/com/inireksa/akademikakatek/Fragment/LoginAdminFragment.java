@@ -13,9 +13,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.inireksa.akademikakatek.API.ApiUrl;
+import com.inireksa.akademikakatek.API.InterfaceAPI;
 import com.inireksa.akademikakatek.AdminActivity;
+import com.inireksa.akademikakatek.Model.LoginAdminResponse;
 import com.inireksa.akademikakatek.R;
 import com.inireksa.akademikakatek.SharedPref;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by IniReksa on 4/26/2018.
@@ -29,7 +38,6 @@ public class LoginAdminFragment extends Fragment {
 
     private SharedPref sharedPref;
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,16 +47,7 @@ public class LoginAdminFragment extends Fragment {
         etPass = rootView.findViewById(R.id.passadmin);
         btnLoginAdmin = rootView.findViewById(R.id.btnadmin);
         progressBar = rootView.findViewById(R.id.prograsbaradmin);
-//
         sharedPref = new SharedPref(getContext());
-//        if (sharedPref.getAdminSudahLogin()){
-//            startActivity(new Intent(getContext(), AdminActivity.class));
-//            getActivity().finish();
-//        }
-//        if (sharedPref.getSudahLogin()) {
-//            startActivity(new Intent(getContext(), MainActivity.class));
-//            getActivity().finish();
-//        }
 
         btnLoginAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,12 +61,11 @@ public class LoginAdminFragment extends Fragment {
     }
 
     private void LoginAdmin() {
-
         String nama = etAdmin.getText().toString();
         String pass = etPass.getText().toString();
 
         if (TextUtils.isEmpty(nama)){
-            etAdmin.setError("NamaMhs Tidak Boleh Kosong");
+            etAdmin.setError("Nama Admin Tidak Boleh Kosong");
             btnLoginAdmin.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.INVISIBLE);
             return;
@@ -80,19 +78,43 @@ public class LoginAdminFragment extends Fragment {
             return;
         }
 
-        if(nama.equals("admin") && pass.equals("admin")){
-            progressBar.setVisibility(View.INVISIBLE);
-            btnLoginAdmin.setVisibility(View.VISIBLE);
-//
-            sharedPref.saveBooleanAdmin(sharedPref.SP_ADMIN_SUDAH_LOGIN, true);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApiUrl.URL_ROOT_LOCAL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        InterfaceAPI api = retrofit.create(InterfaceAPI.class);
+        Call<LoginAdminResponse> call = api.loginadmin(nama, pass);
+        call.enqueue(new Callback<LoginAdminResponse>() {
+            @Override
+            public void onResponse(Call<LoginAdminResponse> call, Response<LoginAdminResponse> response) {
+                String Error = response.body().Error;
+                String Message = response.body().Message;
+                String NamaAdmin = response.body().NamaAdmin;
 
-            Intent intent = new Intent(getActivity(), AdminActivity.class);
-            getActivity().startActivity(intent);
-            getActivity().finish();
-        } else {
-            Toast.makeText(getActivity(), "NamaMhs dan Password salah", Toast.LENGTH_SHORT).show();
-            progressBar.setVisibility(View.INVISIBLE);
-            btnLoginAdmin.setVisibility(View.VISIBLE);
-        }
+                if (Error.equals("0")){
+                    progressBar.setVisibility(View.INVISIBLE);
+                    btnLoginAdmin.setVisibility(View.VISIBLE);
+                    Toast.makeText(getContext(), Message , Toast.LENGTH_SHORT).show();
+
+                    sharedPref.setNamaAdmin(NamaAdmin);
+                    sharedPref.saveBooleanAdmin(sharedPref.SP_ADMIN_SUDAH_LOGIN, true);
+
+                    Intent intent = new Intent(getActivity(), AdminActivity.class);
+                    getActivity().startActivity(intent);
+                    getActivity().finish();
+                } else {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    btnLoginAdmin.setVisibility(View.VISIBLE);
+                    Toast.makeText(getContext(), Message, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginAdminResponse> call, Throwable t) {
+                progressBar.setVisibility(View.INVISIBLE);
+                btnLoginAdmin.setVisibility(View.VISIBLE);
+                Toast.makeText(getContext(), "Jaringan Error", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -1,10 +1,12 @@
 package com.inireksa.akademikakatek;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,22 +19,46 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.inireksa.akademikakatek.API.ApiUrl;
+import com.inireksa.akademikakatek.API.InterfaceAPI;
 import com.inireksa.akademikakatek.Adapter.RvAdminMain;
+import com.inireksa.akademikakatek.Model.Angkatan;
+import com.inireksa.akademikakatek.Model.ServerResponse;
 
-public class AdminActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class AdminActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
     private final static String TAG = "AdminActivity";
 
     RecyclerView recyclerViewMain;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.Adapter adapter;
-    String Kelas, Matkul, Dosen, Sesi, Ruangan, Hari;
+    String Kelas, Matkul, Dosen, Sesi, Ruangan, Hari, isiinfo, pilihangkatan;
     Spinner spinnerKelas, spinnerMatkul, spinnerDosen, spinnerSesi, spinnerRuangan, spinnerHari;
+    TextView namaAdmin;
+    TextInputEditText info;
+    Button btnKirimInfo;
+    ProgressBar progressBar;
+    RadioGroup radioGroup;
+    Spinner spinnerAngkatan;
+    boolean isSendAllChacked;
 
     SharedPref sharedPref;
     Dialog mydialog;
@@ -41,10 +67,12 @@ public class AdminActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
+        sharedPref = new SharedPref(AdminActivity.this);
 
+        namaAdmin = findViewById(R.id.namaAdmin);
+        namaAdmin.setText(sharedPref.getNamaAdmin());
         recyclerViewMain = findViewById(R.id.rvHomeAdmin);
         recyclerViewMain.setHasFixedSize(true);
-        sharedPref = new SharedPref(AdminActivity.this);
 
         layoutManager = new GridLayoutManager(this, 2);
         recyclerViewMain.setLayoutManager(layoutManager);
@@ -90,20 +118,115 @@ public class AdminActivity extends AppCompatActivity {
         mydialog = new Dialog(AdminActivity.this);
         mydialog.setContentView(R.layout.dialog_input_info);
         mydialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        final TextView info = mydialog.findViewById(R.id.infoterbaru);
-        final String isiinfo = info.getText().toString();
-        Button btninfo = mydialog.findViewById(R.id.btnInputInfo);
-        btninfo.setOnClickListener(new View.OnClickListener() {
+
+        radioGroup = mydialog.findViewById(R.id.radioGroup);
+        btnKirimInfo = mydialog.findViewById(R.id.btnInputInfo);
+        progressBar = mydialog.findViewById(R.id.prograsbarinput);
+        spinnerAngkatan = mydialog.findViewById(R.id.spinerkatergori);
+        loadAngkatan();
+
+        radioGroup.setOnCheckedChangeListener(this);
+        btnKirimInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                info = mydialog.findViewById(R.id.infoterbaru);
+                isiinfo = info.getText().toString();
+                btnKirimInfo.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
+
                 if (TextUtils.isEmpty(isiinfo)){
                     info.setError("Isi Info terlebih dahulu");
+                    btnKirimInfo.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.INVISIBLE);
                     return;
                 }
-                Toast.makeText(AdminActivity.this, "Info Terkirim", Toast.LENGTH_SHORT).show();
+                
+                kirimInfo();
+
             }
         });
+
         mydialog.show();
+
+    }
+
+    private void kirimInfo() {
+        if(isSendAllChacked){
+            sendMultiplePush();
+        }else{
+            sendSinglePush();
+        }
+        
+    }
+
+    private void sendSinglePush() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApiUrl.URL_ROOT_LOCAL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        InterfaceAPI api = retrofit.create(InterfaceAPI.class);
+        Call<ServerResponse> call = api.kiriminfoperkelas(pilihangkatan, "Akademik", isiinfo);
+        call.enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                String error = response.body().Error;
+                String message = response.body().Message;
+
+                if (error.equals("0")){
+                    Toast.makeText(AdminActivity.this, message, Toast.LENGTH_SHORT).show();
+                    info.setText("");
+                    mydialog.dismiss();
+                    btnKirimInfo.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.INVISIBLE);
+                } if (error.equals("1")) {
+                    btnKirimInfo.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Toast.makeText(AdminActivity.this, message, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                btnKirimInfo.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(AdminActivity.this, "Jaringan Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void sendMultiplePush() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApiUrl.URL_ROOT_LOCAL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        InterfaceAPI api = retrofit.create(InterfaceAPI.class);
+        Call<ServerResponse> call = api.kiriminfo("-1", "Akademik", isiinfo);
+        call.enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                String error = response.body().Error;
+                String message = response.body().Message;
+
+                if (error.equals("0")){
+                    Toast.makeText(AdminActivity.this, message, Toast.LENGTH_SHORT).show();
+                    info.setText("");
+                    mydialog.dismiss();
+                    btnKirimInfo.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.INVISIBLE);
+                } if (error.equals("1")){
+                    btnKirimInfo.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Toast.makeText(AdminActivity.this, message, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                btnKirimInfo.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(AdminActivity.this, "Jaringan Error", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void dialogUpdateJadwal() {
@@ -188,5 +311,65 @@ public class AdminActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Tidak", null)
                 .show();
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        switch (radioGroup.getCheckedRadioButtonId()){
+            case R.id.radioButtonSemua:
+                isSendAllChacked = true;
+                spinnerAngkatan.setEnabled(false);
+                break;
+
+            case R.id.radioButtonPilihan:
+                isSendAllChacked = false;
+                spinnerAngkatan.setEnabled(true);
+                break;
+        }
+    }
+
+
+    private void loadAngkatan() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApiUrl.URL_ROOT_LOCAL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        InterfaceAPI api = retrofit.create(InterfaceAPI.class);
+        Call<List<Angkatan>> call = api.ambilangkatan();
+        call.enqueue(new Callback<List<Angkatan>>() {
+            @Override
+            public void onResponse(Call<List<Angkatan>> call, Response<List<Angkatan>> response) {
+                List<Angkatan> dataresponse = response.body();
+                if (response.isSuccessful()){
+                    List<String> listspinner = new ArrayList<String>();
+                    for (int i = 0; i < dataresponse.size(); i++){
+                        listspinner.add(dataresponse.get(i).angkatan);
+                    }
+                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(AdminActivity.this,
+                            android.R.layout.simple_spinner_item, listspinner);
+                  adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                  spinnerAngkatan.setAdapter(adapter);
+
+                  spinnerAngkatan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                      @Override
+                      public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                          pilihangkatan = adapter.getItem(i).toString();
+                      }
+
+                      @Override
+                      public void onNothingSelected(AdapterView<?> adapterView) {
+
+                      }
+                  });
+                } else {
+                    Toast.makeText(AdminActivity.this, "Gagal mengambil angkatan", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Angkatan>> call, Throwable t) {
+                Toast.makeText(AdminActivity.this, "Jaringan Error", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

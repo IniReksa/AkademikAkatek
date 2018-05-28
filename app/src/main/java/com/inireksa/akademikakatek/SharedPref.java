@@ -76,11 +76,11 @@ public class SharedPref {
     }
 
     public String getAngkatan() {
-        return sp.getString("angkatan", null);
+        return sp.getString("Angkatan", null);
     }
 
     public void setAngkatan(String angkatan) {
-        editor.putString("angkatan", angkatan);
+        editor.putString("Angkatan", angkatan);
         editor.commit();
     }
 
@@ -163,5 +163,24 @@ public class SharedPref {
     public void setUpdateAt(String updateAt) {
         editor.putString("updatedat", updateAt);
         editor.commit();
+    }
+
+    public String getNamaAdmin() {
+        return sp.getString("namaadmin", null);
+    }
+
+    public void setNamaAdmin(String namaAdmin) {
+        editor.putString("namaadmin", namaAdmin);
+        editor.commit();
+    }
+
+    public boolean setDeviceToken(String token){
+        editor.putString("token", token);
+        editor.commit();
+        return true;
+    }
+
+    public String getDeviceToken(){
+        return sp.getString("token", null);
     }
 }

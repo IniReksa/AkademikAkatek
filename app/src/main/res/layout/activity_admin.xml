@@ -21,12 +21,13 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/img_adm"
+                    android:id="@+id/img_admin"
                     android:layout_width="100dp"
-                    android:layout_height="120dp"
+                    android:layout_height="100dp"
                     android:layout_centerHorizontal="true"
-                    android:elevation="2dp"
-                    android:src="@drawable/ic_mhs"/>
+                    android:elevation="5dp"
+                    android:background="@drawable/bg_profile"
+                    android:src="@drawable/ic_logo"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
