@@ -1,6 +1,9 @@
 package com.inireksa.akademikakatek.Adapter;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,6 +43,12 @@ public class RvNilai extends RecyclerView.Adapter<RvNilai.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         Nilai itemnilai = nilais.get(position);
         holder.matkul.setText(itemnilai.NamaMk);
+        holder.hadir.setText(itemnilai.Kehadiran);
+        holder.hadir.setText(itemnilai.Kehadiran);
+        holder.tugas.setText(itemnilai.Tugas);
+        holder.uts.setText(itemnilai.Uts);
+        holder.uas.setText(itemnilai.Uas);
+        holder.nilaiAkhir.setText(itemnilai.NilaiAkhir);
     }
 
     @Override
@@ -49,14 +58,17 @@ public class RvNilai extends RecyclerView.Adapter<RvNilai.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView matkul, detailnilai;
+        TextView matkul, hadir, tugas, uts, uas, nilaiAkhir;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             matkul = itemView.findViewById(R.id.matkulnilai);
-            detailnilai = itemView.findViewById(R.id.detailNilai);
+            hadir = itemView.findViewById(R.id.nilaihadir);
+            tugas = itemView.findViewById(R.id.nilaitugas);
+            uts = itemView.findViewById(R.id.nilaiuts);
+            uas = itemView.findViewById(R.id.nilaiuas);
+            nilaiAkhir = itemView.findViewById(R.id.nilaiakhir);
         }
-
     }
 }

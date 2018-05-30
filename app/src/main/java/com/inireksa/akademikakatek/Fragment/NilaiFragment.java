@@ -69,44 +69,44 @@ public class NilaiFragment extends Fragment {
         rvNilai.setLayoutManager(layoutManager);
         loadDataSemester();
         //klik recyclerview
-        rvNilai.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            GestureDetector gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener(){
-                @Override
-                public boolean onSingleTapUp(MotionEvent e) {
-                    return true;
-                }
-            });
-
-            @Override
-            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-                View child = rvNilai.findChildViewUnder(e.getX(), e.getY());
-                if (child!= null && gestureDetector.onTouchEvent(e)){
-                    int position = rvNilai.getChildAdapterPosition(child);
-
-                    mydialog = new Dialog(getContext());
-                    mydialog.setContentView(R.layout.dialog_nilai);
-                    mydialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    TextView dialogHadir = mydialog.findViewById(R.id.nilaihadir);
-                    TextView dialogTugas = mydialog.findViewById(R.id.nilaitugas);
-                    TextView dialogUts = mydialog.findViewById(R.id.nilaiuts);
-                    TextView dialogUas = mydialog.findViewById(R.id.nilaiuas);
-                    TextView dialogNilaiAkhir = mydialog.findViewById(R.id.nilaiakhir);
-                    mydialog.show();
-                    Toast.makeText(getContext(), "Matkul " +position, Toast.LENGTH_SHORT).show();
-                }
-                return false;
-            }
-
-            @Override
-            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-            }
-        });
+//        rvNilai.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+//            GestureDetector gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener(){
+//                @Override
+//                public boolean onSingleTapUp(MotionEvent e) {
+//                    return true;
+//                }
+//            });
+//
+//            @Override
+//            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+//                View child = rvNilai.findChildViewUnder(e.getX(), e.getY());
+//                if (child!= null && gestureDetector.onTouchEvent(e)){
+//                    int position = rvNilai.getChildAdapterPosition(child);
+//
+//                    mydialog = new Dialog(getContext());
+//                    mydialog.setContentView(R.layout.dialog_nilai);
+//                    mydialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                    TextView dialogHadir = mydialog.findViewById(R.id.nilaihadir);
+//                    TextView dialogTugas = mydialog.findViewById(R.id.nilaitugas);
+//                    TextView dialogUts = mydialog.findViewById(R.id.nilaiuts);
+//                    TextView dialogUas = mydialog.findViewById(R.id.nilaiuas);
+//                    TextView dialogNilaiAkhir = mydialog.findViewById(R.id.nilaiakhir);
+//                    mydialog.show();
+//                    Toast.makeText(getContext(), "Matkul " +position, Toast.LENGTH_SHORT).show();
+//                }
+//                return false;
+//            }
+//
+//            @Override
+//            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+//
+//            }
+//
+//            @Override
+//            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+//
+//            }
+//        });
 
         return v;
     }
