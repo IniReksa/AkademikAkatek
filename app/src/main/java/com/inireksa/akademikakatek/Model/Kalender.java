@@ -5,13 +5,22 @@ package com.inireksa.akademikakatek.Model;
  */
 
 public class Kalender {
-    public String Tanggal;
+    public String Waktu;
     public String Kegiatan;
     public String Keterangan;
+    public String CreatedBy;
+    public String CreatedAt;
+    public String UpdateBy;
+    public String UpdateAt;
 
-    public Kalender(String Tanggal, String Kegiatan, String KetMahasiswa) {
-        this.Tanggal = Tanggal;
-        this.Kegiatan = Kegiatan;
-        this.Keterangan = KetMahasiswa;
+    public Kalender(String waktu, String kegiatan, String keterangan, String createdBy,
+                    String createdAt, String updateBy, String updateAt) {
+        Waktu = waktu;
+        Kegiatan = kegiatan;
+        Keterangan = keterangan;
+        CreatedBy = createdBy;
+        CreatedAt = createdAt;
+        UpdateBy = updateBy;
+        UpdateAt = updateAt;
     }
 }

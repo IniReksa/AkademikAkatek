@@ -1,10 +1,11 @@
-package com.inireksa.akademikakatek;
+package com.inireksa.akademikakatek.Firebase;
 
 import android.content.Intent;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.inireksa.akademikakatek.MainActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

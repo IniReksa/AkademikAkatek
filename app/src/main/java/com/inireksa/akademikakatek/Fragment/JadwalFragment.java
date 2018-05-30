@@ -65,13 +65,14 @@ public class JadwalFragment extends Fragment {
         String kelas = sharedPref.getKelas();
         String jurusan = sharedPref.getJurusan();
         String angkatan = sharedPref.getAngkatan();
+        String hariIni = "";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiUrl.URL_ROOT_LOCAL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         InterfaceAPI api = retrofit.create(InterfaceAPI.class);
-        Call<JadwalResponse> call = api.jadwal(kelas, jurusan, angkatan);
+        Call<JadwalResponse> call = api.jadwal(kelas, jurusan, angkatan, hariIni);
         call.enqueue(new Callback<JadwalResponse>() {
             @Override
             public void onResponse(Call<JadwalResponse> call, Response<JadwalResponse> response) {

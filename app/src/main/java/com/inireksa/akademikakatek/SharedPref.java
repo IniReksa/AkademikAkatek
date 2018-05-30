@@ -129,42 +129,6 @@ public class SharedPref {
         editor.commit();
     }
 
-    public String getCreatedBy() {
-        return sp.getString("createdby", null);
-    }
-
-    public void setCreatedBy(String createdBy) {
-        editor.putString("createdby", createdBy);
-        editor.commit();
-    }
-
-    public String getCreatedAt() {
-        return sp.getString("createdat", null);
-    }
-
-    public void setCreatedAt(String createdAt) {
-        editor.putString("createdat", createdAt);
-        editor.commit();
-    }
-
-    public String getUpdateBy() {
-        return sp.getString("updatedby", null);
-    }
-
-    public void setUpdateBy(String updateBy) {
-        editor.putString("updatedby", updateBy);
-        editor.commit();
-    }
-
-    public String getUpdateAt() {
-        return sp.getString("updatedat", null);
-    }
-
-    public void setUpdateAt(String updateAt) {
-        editor.putString("updatedat", updateAt);
-        editor.commit();
-    }
-
     public String getNamaAdmin() {
         return sp.getString("namaadmin", null);
     }

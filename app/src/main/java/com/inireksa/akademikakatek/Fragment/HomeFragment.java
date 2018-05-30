@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -33,7 +34,12 @@ import com.inireksa.akademikakatek.Model.Mahasiswa;
 import com.inireksa.akademikakatek.R;
 import com.inireksa.akademikakatek.SharedPref;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,7 +67,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-
 //        ActiveFragment = "HOME";
 
         sharedPref = new SharedPref(getContext());
@@ -178,6 +183,7 @@ public class HomeFragment extends Fragment {
                         progressKelas.setVisibility(View.GONE);
                         adapter = new RvKlsMain(getContext(), mahasiswas);
                         recyclerView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
                     }
                     if (error.equals("1")) {
                         //                    progressKelas.setVisibility(View.VISIBLE);
@@ -201,12 +207,21 @@ public class HomeFragment extends Fragment {
         String jurusan = sharedPref.getJurusan();
         String angkatan = sharedPref.getAngkatan();
 
+        //ambil value hari ini
+        Calendar c = Calendar.getInstance();
+        Date date = c.getTime();
+        DateFormat dateFormat = new SimpleDateFormat("EEE", new Locale("in", "ID"));
+        String hariIni = dateFormat.format(date);
+        Log.d("Hari ini ", hariIni);
+
+        String verifHari = verifHari(hariIni);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiUrl.URL_ROOT_LOCAL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         InterfaceAPI api = retrofit.create(InterfaceAPI.class);
-        Call<JadwalResponse> call = api.jadwal(kelas, jurusan, angkatan);
+        Call<JadwalResponse> call = api.jadwal(kelas, jurusan, angkatan, verifHari);
         call.enqueue(new Callback<JadwalResponse>() {
             @Override
             public void onResponse(Call<JadwalResponse> call, Response<JadwalResponse> response) {
@@ -220,6 +235,7 @@ public class HomeFragment extends Fragment {
                         progressJadwal.setVisibility(View.GONE);
                         adapterJadwal = new RvJadwalMain(getContext(), jadwals);
                         rvJadwalMain.setAdapter(adapterJadwal);
+                        adapterJadwal.notifyDataSetChanged();
                     }
                     if (error.equals("1")) {
 //                    progressJadwal.setVisibility(View.VISIBLE);
@@ -238,9 +254,36 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    private String verifHari(String hariIni) {
+        switch (hariIni) {
+            case "Min":
+                Log.d("VerfHari = ", "Minggu");
+                return "Minggu";
+            case "Sen":
+                Log.d("VerfHari = ", "Senin");
+                return "Senin";
+            case "Sel":
+                Log.d("VerfHari = ", "Selasa");
+                return "Selasa";
+            case "Rab":
+                Log.d("VerfHari = ", "Rabu");
+                return "Rabu";
+            case "Kam":
+                Log.d("VerfHari = ", "Kamis");
+                return "Kamis";
+            case "Jum":
+                Log.d("VerfHari = ", "Jumat");
+                return "Jumat";
+            case "Sab":
+                Log.d("VerfHari = ", "Sabtu");
+                return "Sabtu";
+            default:
+                Log.d("VerfHari = ", "Tidak Ada Hari");
+                return hariIni;
+        }
+    }
+
     private void ambildatainfo() {
-        String kelas = sharedPref.getKelas();
-        String jurusan = sharedPref.getJurusan();
         String angkatan = sharedPref.getAngkatan();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -248,7 +291,7 @@ public class HomeFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         InterfaceAPI api = retrofit.create(InterfaceAPI.class);
-        Call<InfoResponse> call = api.infomain(kelas, jurusan, angkatan);
+        Call<InfoResponse> call = api.infomain(angkatan);
         call.enqueue(new Callback<InfoResponse>() {
             @Override
             public void onResponse(Call<InfoResponse> call, Response<InfoResponse> response) {
@@ -262,6 +305,7 @@ public class HomeFragment extends Fragment {
                              progressInfo.setVisibility(View.GONE);
                              adapterInfo = new RvInfoMain(getContext(), infos);
                              rvInfo.setAdapter(adapterInfo);
+                             adapterInfo.notifyDataSetChanged();
                          }
                          if (error.equals("1")) {
 //                    progressInfo.setVisibility(View.VISIBLE);

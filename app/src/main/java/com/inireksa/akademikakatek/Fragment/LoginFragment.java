@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +17,6 @@ import com.inireksa.akademikakatek.API.ApiUrl;
 import com.inireksa.akademikakatek.API.InterfaceAPI;
 import com.inireksa.akademikakatek.MainActivity;
 import com.inireksa.akademikakatek.Model.LoginResponse;
-import com.inireksa.akademikakatek.Model.ServerResponse;
-import com.inireksa.akademikakatek.MyFirebaseInstanceIDService;
 import com.inireksa.akademikakatek.R;
 import com.inireksa.akademikakatek.SharedPref;
 
@@ -114,12 +111,8 @@ LoginFragment extends Fragment {
                     JenisKelamin = response.body().mahasiswa.JenisKelamin;
                     NoTlp = response.body().mahasiswa.NoTlp;
                     FotoMhs = response.body().mahasiswa.FotoMhs;
-                    CreatedBy = response.body().mahasiswa.CreatedBy;
-                    CreatedAt = response.body().mahasiswa.CreatedAt;
-                    UpdateAt = response.body().mahasiswa.UpdatedAt;
-                    UpdateBy = response.body().mahasiswa.UpdatedBy;
 
-                    simpanDataMahasiswa(NamaMhs, Npm, Kelas, Jurusan, Angkatan, Alamat, TglLahir, JenisKelamin, NoTlp, FotoMhs, CreatedBy, CreatedAt, UpdateBy, UpdateAt);
+                    simpanDataMahasiswa(NamaMhs, Npm, Kelas, Jurusan, Angkatan, Alamat, TglLahir, JenisKelamin, NoTlp, FotoMhs);
 
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     getActivity().startActivity(intent);
@@ -142,7 +135,7 @@ LoginFragment extends Fragment {
     }
 
     private void simpanDataMahasiswa(String namaMhs, int npm, String kelas, String jurusan, String angkatan, String alamat, String tgl_lahir, String jenis_kelamin,
-                                     int notlp, String fotomhs, String createdBy, String createdAt, String updateBy, String updateAt) {
+                                     int notlp, String fotomhs) {
         sharedPref.setNama(namaMhs);
         sharedPref.setNpm(npm);
         sharedPref.setKelas(kelas);
@@ -153,9 +146,5 @@ LoginFragment extends Fragment {
         sharedPref.setJenisKelamin(jenis_kelamin);
         sharedPref.setNoTlp(notlp);
         sharedPref.setFotoMhs(fotomhs);
-        sharedPref.setCreatedBy(createdBy);
-        sharedPref.setCreatedAt(createdAt);
-        sharedPref.setUpdateAt(updateAt);
-        sharedPref.setUpdateBy(updateBy);
     }
 }

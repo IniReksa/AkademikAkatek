@@ -1,10 +1,13 @@
 package com.inireksa.akademikakatek.API;
 import com.inireksa.akademikakatek.Model.InfoResponse;
 import com.inireksa.akademikakatek.Model.JadwalResponse;
+import com.inireksa.akademikakatek.Model.KalenderResponse;
 import com.inireksa.akademikakatek.Model.LoginAdminResponse;
 import com.inireksa.akademikakatek.Model.MahasiswaResponse;
 import com.inireksa.akademikakatek.Model.LoginResponse;
 import com.inireksa.akademikakatek.Model.Angkatan;
+import com.inireksa.akademikakatek.Model.NilaiResponse;
+import com.inireksa.akademikakatek.Model.Semester;
 import com.inireksa.akademikakatek.Model.ServerResponse;
 
 import java.util.List;
@@ -41,19 +44,16 @@ public interface InterfaceAPI {
     @POST("jadwal")
     Call<JadwalResponse> jadwal (@Field("kelas") String kelas,
                                  @Field("jurusan") String jurusan,
-                                 @Field("angkatan") String angkatan);
+                                 @Field("angkatan") String angkatan,
+                                 @Field("hariIni") String hariIni);
 
     @FormUrlEncoded
     @POST("info")
-    Call<InfoResponse> info (@Field("kelas") String kelas,
-                             @Field("jurusan") String jurusan,
-                             @Field("angkatan") String angkatan);
+    Call<InfoResponse> info (@Field("angkatan") String angkatan);
 
     @FormUrlEncoded
     @POST("infomain")
-    Call<InfoResponse> infomain (@Field("kelas") String kelas,
-                                 @Field("jurusan") String jurusan,
-                                 @Field("angkatan") String angkatan);
+    Call<InfoResponse> infomain (@Field("angkatan") String angkatan);
 
     @FormUrlEncoded
     @POST("kiriminfo")
@@ -74,4 +74,15 @@ public interface InterfaceAPI {
 
     @GET("ambilangkatan")
     Call<List<Angkatan>> ambilangkatan();
+
+    @GET("ambilkalender")
+    Call<KalenderResponse> ambilkalender();
+
+    @GET("ambilsemester")
+    Call<List<Semester>> ambilsemester();
+
+    @FormUrlEncoded
+    @POST("ambilnilai")
+    Call<NilaiResponse> ambilnilai(@Field("npm") String npm,
+                                   @Field("semester") String semester);
 }

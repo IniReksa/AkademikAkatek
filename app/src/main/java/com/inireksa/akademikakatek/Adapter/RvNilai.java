@@ -2,6 +2,7 @@ package com.inireksa.akademikakatek.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +21,11 @@ import java.util.List;
 public class RvNilai extends RecyclerView.Adapter<RvNilai.ViewHolder> {
 
     private Context context;
+    private List<Nilai> nilais;
 
-    List<Nilai> nilais;
-
-    public RvNilai() {
-        super();
-        nilais = new ArrayList<>();
-        nilais.add(new Nilai("Pemrograman Visual Basic", "9", "70", "75", "80", "80"));
-        nilais.add(new Nilai("Pemrograman WEB", "7", "80", "80","80","85"));
-        nilais.add(new Nilai("Web Desain", "7", "80", "80","80","85"));
+    public RvNilai(Context context, List<Nilai> nilais) {
+        this.context = context;
+        this.nilais = nilais;
     }
 
     @Override
@@ -42,7 +39,7 @@ public class RvNilai extends RecyclerView.Adapter<RvNilai.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Nilai itemnilai = nilais.get(position);
-        holder.matkul.setText(itemnilai.Matkul);
+        holder.matkul.setText(itemnilai.NamaMk);
     }
 
     @Override

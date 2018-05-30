@@ -1,4 +1,4 @@
-package com.inireksa.akademikakatek;
+package com.inireksa.akademikakatek.Firebase;
 
 import android.util.Log;
 
@@ -7,6 +7,7 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.inireksa.akademikakatek.API.ApiUrl;
 import com.inireksa.akademikakatek.API.InterfaceAPI;
 import com.inireksa.akademikakatek.Model.ServerResponse;
+import com.inireksa.akademikakatek.SharedPref;
 
 import retrofit2.Call;
 import retrofit2.Callback;

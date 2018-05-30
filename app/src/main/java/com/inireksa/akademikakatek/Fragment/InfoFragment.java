@@ -62,8 +62,6 @@ public class InfoFragment extends Fragment {
     }
 
     private void ambildatainfo() {
-        String kelas = sharedPref.getKelas();
-        String jurusan = sharedPref.getJurusan();
         String angkatan = sharedPref.getAngkatan();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -71,7 +69,7 @@ public class InfoFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         InterfaceAPI api = retrofit.create(InterfaceAPI.class);
-        Call<InfoResponse> call = api.info(kelas, jurusan, angkatan);
+        Call<InfoResponse> call = api.info(angkatan);
         call.enqueue(new Callback<InfoResponse>() {
             @Override
             public void onResponse(Call<InfoResponse> call, Response<InfoResponse> response) {
@@ -80,6 +78,7 @@ public class InfoFragment extends Fragment {
                 String message = response.body().Message;
 
                 if (error.equals("0")){
+                    progressBar.setVisibility(View.GONE);
                     List<Info> infos = response.body().info;
                     adapterInfoFragment = new RvInfoMain(getContext(), infos);
                     recyclerView.setAdapter(adapterInfoFragment);

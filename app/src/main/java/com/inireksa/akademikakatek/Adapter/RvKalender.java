@@ -1,5 +1,6 @@
 package com.inireksa.akademikakatek.Adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,15 +19,12 @@ import java.util.List;
 
 public class RvKalender extends RecyclerView.Adapter<RvKalender.ViewHolder> {
 
-    List<Kalender> kalenders;
+    private Context context;
+    private List<Kalender> kalenders;
 
-    public RvKalender() {
-        super();
-        kalenders = new ArrayList<>();
-        kalenders.add(new Kalender("7 - 12 Mei 2018", "Pelaksanaa Ujian Tengah Semester Genap 2017/2018", "Semua Mahasiswa"));
-        kalenders.add(new Kalender("14 Mei 2018", "Pelaksanaa Ujian Tengah Semester Genap 2017/2018", "Semua Mahasiswa"));
-        kalenders.add(new Kalender("14 Mei 2018", "Pelaksanaa Ujian Tengah Semester Genap 2017/2018", "Semua Mahasiswa"));
-        kalenders.add(new Kalender("14 Mei 2018", "Pelaksanaa Ujian Tengah Semester Genap 2017/2018", "Semua Mahasiswa"));
+    public RvKalender(Context context, List<Kalender> kalenders) {
+        this.context = context;
+        this.kalenders = kalenders;
     }
 
     @Override
@@ -40,7 +38,7 @@ public class RvKalender extends RecyclerView.Adapter<RvKalender.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Kalender itemKalender = kalenders.get(position);
-        holder.tanggal.setText(itemKalender.Tanggal);
+        holder.tanggal.setText(itemKalender.Waktu);
         holder.kegiatan.setText(itemKalender.Kegiatan);
         holder.ketmahasiswa.setText(itemKalender.Keterangan);
     }
