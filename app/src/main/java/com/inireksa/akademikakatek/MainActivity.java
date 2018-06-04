@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     FragmentTransaction fragmentTransaction;
-//  String ActiveFragment = "";
     HomeFragment homeFragment;
     SharedPref sharedPref;
 
@@ -53,7 +52,6 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.framelayout, homeFragment);
         fragmentTransaction.commit();
-//        ActiveFragment = "HOME";
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -82,7 +80,6 @@ public class MainActivity extends AppCompatActivity
                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, infoFragment);
                 fragmentTransaction.commit();
-//                ActiveFragment = "INFO";
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -100,32 +97,27 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.framelayout, homeFragment);
             fragmentTransaction.commit();
-//            ActiveFragment = "HOME";
         } else if (id == R.id.menuJadwal) {
             JadwalFragment jadwalFragment = new JadwalFragment();
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.framelayout, jadwalFragment);
             fragmentTransaction.commit();
-//            ActiveFragment = "JADWAL";
         } else if (id == R.id.menuNilai) {
             NilaiFragment nilaiFragment = new NilaiFragment();
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.framelayout, nilaiFragment);
             fragmentTransaction.commit();
-//            ActiveFragment = "NILAI";
         } else if (id == R.id.menukalender) {
             KalenderFragment kalenderFragment = new KalenderFragment();
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.framelayout, kalenderFragment);
             fragmentTransaction.commit();
-//            ActiveFragment = "KALENDER";
 
         }else if (id == R.id.menuTentang) {
             TentangFragment tentangFragment = new TentangFragment();
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.framelayout, tentangFragment);
             fragmentTransaction.commit();
-//            ActiveFragment = "TENTANG";
 
         }else if (id == R.id.logout){
             new AlertDialog.Builder(this, R.style.CustomAlertDialog)
@@ -178,15 +170,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-
-//        if (!ActiveFragment.equals("HOME")){
-//            HomeFragment homeFragment = new HomeFragment();
-//            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//            fragmentTransaction.replace(R.id.framelayout, homeFragment);
-//            fragmentTransaction.commit();
-//        }else if (ActiveFragment.equals("HOME")) {
-
-//        } else {
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             if (drawer.isDrawerOpen(GravityCompat.START)) {
                 drawer.closeDrawer(GravityCompat.START);
@@ -202,7 +185,6 @@ public class MainActivity extends AppCompatActivity
                         })
                         .setNegativeButton("Tidak", null)
                         .show();
-//                super.onBackPressed();
             }
         }
 

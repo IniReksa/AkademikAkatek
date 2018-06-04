@@ -3,9 +3,13 @@ package com.inireksa.akademikakatek.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 import com.inireksa.akademikakatek.R;
 
@@ -15,7 +19,8 @@ import com.inireksa.akademikakatek.R;
  */
 public class TentangFragment extends Fragment {
 
-    public String ActiveFragment = "";
+    String url = "file:///android_asset/TentangKampus.html";
+    WebView webView;
 
 
     public TentangFragment() {
@@ -26,11 +31,11 @@ public class TentangFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ActiveFragment = "TENTANG";
         View v = inflater.inflate(R.layout.fragment_tentang, container, false);
 
+        webView = v.findViewById(R.id.webview);
+        webView.loadUrl(url);
 
         return v;
     }
-
 }

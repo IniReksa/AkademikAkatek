@@ -13,6 +13,9 @@ public class SharedPref {
     public static final String SP_SUDAH_LOGIN = "spSudahLogin";
     public static final String SP_ADMIN_SUDAH_LOGIN = "spAdminSudahLogin";
 
+    public static final String DEFAULT_NAME = "Tidak ada nama";
+    public static final int DEFAULT_SCORE = 0;
+
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
@@ -54,7 +57,7 @@ public class SharedPref {
     }
 
     public Integer getNpm(){
-        return Integer.valueOf(sp.getString("npm", null));
+        return Integer.valueOf(sp.getString("npm", String.valueOf(DEFAULT_SCORE)));
     }
 
     public String getKelas() {
@@ -76,11 +79,11 @@ public class SharedPref {
     }
 
     public String getAngkatan() {
-        return sp.getString("Angkatan", null);
+        return sp.getString("SpinnerAngkatan", null);
     }
 
     public void setAngkatan(String angkatan) {
-        editor.putString("Angkatan", angkatan);
+        editor.putString("SpinnerAngkatan", angkatan);
         editor.commit();
     }
 

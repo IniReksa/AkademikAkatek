@@ -35,7 +35,6 @@ public class InfoFragment extends Fragment {
 
     RecyclerView recyclerView;
     RecyclerView.Adapter adapterInfoFragment;
-    public String ActiveFragment = "";
     SharedPref sharedPref;
     ProgressBar progressBar;
 
@@ -49,7 +48,6 @@ public class InfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_info, container, false);
-        ActiveFragment = "INFO";
 
         sharedPref = new SharedPref(getContext());
 
@@ -76,22 +74,27 @@ public class InfoFragment extends Fragment {
 
                 String error = response.body().Error;
                 String message = response.body().Message;
+                List<Info> infos = response.body().info;
 
-                if (error.equals("0")){
-                    progressBar.setVisibility(View.GONE);
-                    List<Info> infos = response.body().info;
-                    adapterInfoFragment = new RvInfoMain(getContext(), infos);
-                    recyclerView.setAdapter(adapterInfoFragment);
+                if (infos != null) {
+                    if (error.equals("0")) {
+                        progressBar.setVisibility(View.GONE);
+                        adapterInfoFragment = new RvInfoMain(getContext(), infos);
+                        recyclerView.setAdapter(adapterInfoFragment);
 
-                } if (error.equals("1")){
-                    progressBar.setVisibility(View.VISIBLE);
-                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                    }
+                    if (error.equals("1")) {
+//                        progressBar.setVisibility(View.VISIBLE);
+                        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Tidak Ada Info", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<InfoResponse> call, Throwable t) {
-                progressBar.setVisibility(View.VISIBLE);
+//                progressBar.setVisibility(View.VISIBLE);
                 Toast.makeText(getContext(), "Jaringan Error", Toast.LENGTH_SHORT).show();
             }
         });

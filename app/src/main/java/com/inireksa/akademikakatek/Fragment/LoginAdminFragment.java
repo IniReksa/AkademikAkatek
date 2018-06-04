@@ -91,21 +91,25 @@ public class LoginAdminFragment extends Fragment {
                 String Message = response.body().Message;
                 String NamaAdmin = response.body().NamaAdmin;
 
-                if (Error.equals("0")){
-                    progressBar.setVisibility(View.INVISIBLE);
-                    btnLoginAdmin.setVisibility(View.VISIBLE);
-                    Toast.makeText(getContext(), Message , Toast.LENGTH_SHORT).show();
+                if (NamaAdmin != null) {
+                    if (Error.equals("0")) {
+                        progressBar.setVisibility(View.INVISIBLE);
+                        btnLoginAdmin.setVisibility(View.VISIBLE);
+                        Toast.makeText(getContext(), Message, Toast.LENGTH_SHORT).show();
 
-                    sharedPref.setNamaAdmin(NamaAdmin);
-                    sharedPref.saveBooleanAdmin(sharedPref.SP_ADMIN_SUDAH_LOGIN, true);
+                        sharedPref.setNamaAdmin(NamaAdmin);
+                        sharedPref.saveBooleanAdmin(sharedPref.SP_ADMIN_SUDAH_LOGIN, true);
 
-                    Intent intent = new Intent(getActivity(), AdminActivity.class);
-                    getActivity().startActivity(intent);
-                    getActivity().finish();
+                        Intent intent = new Intent(getActivity(), AdminActivity.class);
+                        getActivity().startActivity(intent);
+                        getActivity().finish();
+                    } else {
+                        progressBar.setVisibility(View.INVISIBLE);
+                        btnLoginAdmin.setVisibility(View.VISIBLE);
+                        Toast.makeText(getContext(), Message, Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    progressBar.setVisibility(View.INVISIBLE);
-                    btnLoginAdmin.setVisibility(View.VISIBLE);
-                    Toast.makeText(getContext(), Message, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Belum Ada Data Admin", Toast.LENGTH_SHORT).show();
                 }
             }
 

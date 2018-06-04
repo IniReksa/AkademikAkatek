@@ -27,22 +27,23 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AdminActivity"
-            android:label="Admin"/>
+            android:label="Admin" />
         <activity
             android:name=".LihatJadwalActivity"
-            android:label="Jadwal"/>
+            android:label="Jadwal" />
 
         <service android:name=".Firebase.MyFirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".Firebase.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service android:name=".Firebase.MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-        </service>
+        <activity android:name=".UpdateJadwalActivity" />
     </application>
 
 </manifest>

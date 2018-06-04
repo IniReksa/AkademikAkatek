@@ -34,7 +34,6 @@ public class KelasFragment extends Fragment {
 
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
-    public String ActiveFragment = "";
     SharedPref sharedPref;
 
     @Override
@@ -42,7 +41,6 @@ public class KelasFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_kelas, container, false);
         sharedPref = new SharedPref(getContext());
-        ActiveFragment = "KELAS";
 
         recyclerView = v.findViewById(R.id.rvKelasFragment);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -68,14 +66,19 @@ public class KelasFragment extends Fragment {
 
                 String error = response.body().Error;
                 String Message = response.body().Message;
+                List<Mahasiswa> mahasiswas = response.body().mahasiswa;
 
-                if (error.equals("0")) {
-                    List<Mahasiswa> mahasiswas = response.body().mahasiswa;
-                    adapter = new RvKlsFragment(getContext(), mahasiswas);
-                    recyclerView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-                } if (error.equals("1")){
-                    Toast.makeText(getActivity(), Message, Toast.LENGTH_SHORT).show();
+                if (mahasiswas != null) {
+                    if (error.equals("0")) {
+                        adapter = new RvKlsFragment(getContext(), mahasiswas);
+                        recyclerView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                    }
+                    if (error.equals("1")) {
+                        Toast.makeText(getActivity(), Message, Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Tidak Ada Mahasiswa Lain", Toast.LENGTH_SHORT).show();
                 }
             }
 

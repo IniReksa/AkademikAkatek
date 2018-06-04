@@ -1,11 +1,11 @@
 package com.inireksa.akademikakatek;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.nfc.Tag;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -31,8 +31,15 @@ import android.widget.Toast;
 import com.inireksa.akademikakatek.API.ApiUrl;
 import com.inireksa.akademikakatek.API.InterfaceAPI;
 import com.inireksa.akademikakatek.Adapter.RvAdminMain;
-import com.inireksa.akademikakatek.Model.Angkatan;
+import com.inireksa.akademikakatek.Model.SpinnerAngkatan;
 import com.inireksa.akademikakatek.Model.ServerResponse;
+import com.inireksa.akademikakatek.Model.SpinnerDosen;
+import com.inireksa.akademikakatek.Model.SpinnerHari;
+import com.inireksa.akademikakatek.Model.SpinnerJurusan;
+import com.inireksa.akademikakatek.Model.SpinnerKelas;
+import com.inireksa.akademikakatek.Model.SpinnerMatkul;
+import com.inireksa.akademikakatek.Model.SpinnerRuangan;
+import com.inireksa.akademikakatek.Model.SpinnerSesi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,14 +57,14 @@ public class AdminActivity extends AppCompatActivity implements RadioGroup.OnChe
     RecyclerView recyclerViewMain;
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.Adapter adapter;
-    String Kelas, Matkul, Dosen, Sesi, Ruangan, Hari, isiinfo, pilihangkatan;
-    Spinner spinnerKelas, spinnerMatkul, spinnerDosen, spinnerSesi, spinnerRuangan, spinnerHari;
+    String isiinfo, pilihangkatan;
+
+    Spinner spinnerAngkatan;
     TextView namaAdmin;
     TextInputEditText info;
     Button btnKirimInfo;
     ProgressBar progressBar;
     RadioGroup radioGroup;
-    Spinner spinnerAngkatan;
     boolean isSendAllChacked;
 
     SharedPref sharedPref;
@@ -96,7 +103,7 @@ public class AdminActivity extends AppCompatActivity implements RadioGroup.OnChe
                         dialogInputInfo();
                     }
                     if (position == 1){
-                        dialogUpdateJadwal();
+                        startActivity(new Intent(AdminActivity.this, LihatJadwalActivity.class));
                     }
                 }
                 return false;
@@ -229,45 +236,6 @@ public class AdminActivity extends AppCompatActivity implements RadioGroup.OnChe
         });
     }
 
-    private void dialogUpdateJadwal() {
-        mydialog = new Dialog(AdminActivity.this);
-        mydialog.setContentView(R.layout.dialog_update_jadwal);
-        mydialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        spinnerKelas = mydialog.findViewById(R.id.kategoriKelas);
-        spinnerMatkul = mydialog.findViewById(R.id.kategoriMatkul);
-        spinnerDosen = mydialog.findViewById(R.id.kategoriDosen);
-        spinnerSesi = mydialog.findViewById(R.id.kategoriSesi);
-        spinnerRuangan = mydialog.findViewById(R.id.kategoriRuangan);
-        spinnerHari = mydialog.findViewById(R.id.kategoriHari);
-        Button btnUpdate = mydialog.findViewById(R.id.btnUpdateJadwal);
-        TextView btnLihatJadwal = mydialog.findViewById(R.id.lihatjadwal);
-
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Kelas = spinnerKelas.getSelectedItem().toString();
-                Matkul = spinnerMatkul.getSelectedItem().toString();
-                Dosen = spinnerDosen.getSelectedItem().toString();
-                Sesi = spinnerSesi.getSelectedItem().toString();
-                Ruangan = spinnerRuangan.getSelectedItem().toString();
-                Hari = spinnerHari.getSelectedItem().toString();
-
-                Toast.makeText(AdminActivity.this, "Update Jadwal Kelas " +Kelas+ ", " +Matkul+ ", " +Dosen+ " Sukses", Toast.LENGTH_SHORT).show();
-                mydialog.dismiss();
-            }
-        });
-
-        btnLihatJadwal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AdminActivity.this, LihatJadwalActivity.class));
-            }
-        });
-
-        mydialog.show();
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_admin, menu);
@@ -335,39 +303,45 @@ public class AdminActivity extends AppCompatActivity implements RadioGroup.OnChe
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         InterfaceAPI api = retrofit.create(InterfaceAPI.class);
-        Call<List<Angkatan>> call = api.ambilangkatan();
-        call.enqueue(new Callback<List<Angkatan>>() {
+        Call<List<SpinnerAngkatan>> call = api.ambilangkatan();
+        call.enqueue(new Callback<List<SpinnerAngkatan>>() {
             @Override
-            public void onResponse(Call<List<Angkatan>> call, Response<List<Angkatan>> response) {
-                List<Angkatan> dataresponse = response.body();
-                if (response.isSuccessful()){
-                    List<String> listspinner = new ArrayList<String>();
-                    for (int i = 0; i < dataresponse.size(); i++){
-                        listspinner.add(dataresponse.get(i).angkatan);
+            public void onResponse(Call<List<SpinnerAngkatan>> call, Response<List<SpinnerAngkatan>> response) {
+                List<SpinnerAngkatan> dataresponse = response.body();
+                Log.d(TAG, "data angkatan" +dataresponse);
+                if (dataresponse != null) {
+                    if (response.isSuccessful()) {
+                        List<String> listspinner = new ArrayList<String>();
+                        for (int i = 0; i < dataresponse.size(); i++) {
+                            listspinner.add(dataresponse.get(i).angkatan);
+                            Log.d(TAG, "Data spinner agkatan" + dataresponse.get(i).angkatan);
+                        }
+                        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(AdminActivity.this,
+                                android.R.layout.simple_spinner_item, listspinner);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinnerAngkatan.setAdapter(adapter);
+
+                        spinnerAngkatan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                pilihangkatan = adapter.getItem(i).toString();
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                            }
+                        });
+                    } else {
+                        Toast.makeText(AdminActivity.this, "Gagal mengambil angkatan", Toast.LENGTH_SHORT).show();
                     }
-                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(AdminActivity.this,
-                            android.R.layout.simple_spinner_item, listspinner);
-                  adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                  spinnerAngkatan.setAdapter(adapter);
-
-                  spinnerAngkatan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                      @Override
-                      public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                          pilihangkatan = adapter.getItem(i).toString();
-                      }
-
-                      @Override
-                      public void onNothingSelected(AdapterView<?> adapterView) {
-
-                      }
-                  });
                 } else {
-                    Toast.makeText(AdminActivity.this, "Gagal mengambil angkatan", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminActivity.this, "Tidak Ada Angkatan Lain", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Angkatan>> call, Throwable t) {
+            public void onFailure(Call<List<SpinnerAngkatan>> call, Throwable t) {
                 Toast.makeText(AdminActivity.this, "Jaringan Error", Toast.LENGTH_SHORT).show();
             }
         });

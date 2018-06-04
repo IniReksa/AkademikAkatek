@@ -23,7 +23,6 @@
         <ProgressBar
             android:layout_gravity="center_horizontal"
             android:layout_margin="5dp"
-            android:visibility="invisible"
             android:id="@+id/progresJadwalFragment"
             android:layout_width="wrap_content"
             android:layout_height="50dp" />

@@ -6,17 +6,32 @@ package com.inireksa.akademikakatek.Model;
 
 public class Jadwal {
 
+    public String IdJadwal;
+    public String Jurusan;
+    public String Angkatan;
+    public String Kelas;
+    public String KodeMk;
     public String Sesi;
     public String NamaMk;
-    public String NamaDosen;
     public String Ruangan;
     public String Hari;
+    public String Semester;
+    public String NamaDosen;
+    public String IdDosen;
 
-    public Jadwal(String sesi, String namaMk, String namaDosen, String ruangan, String hari) {
-        this.Sesi = sesi;
-        this.NamaMk = namaMk;
-        this.NamaDosen = namaDosen;
-        this.Ruangan = ruangan;
-        this.Hari = hari;
+    public Jadwal(String idJadwal, String jurusan, String angkatan, String kelas, String kodeMk, String sesi,
+                  String namaMk, String ruangan, String hari, String semester, String namaDosen, String idDosen) {
+        IdJadwal = idJadwal;
+        Jurusan = jurusan;
+        Angkatan = angkatan;
+        Kelas = kelas;
+        KodeMk = kodeMk;
+        Sesi = sesi;
+        NamaMk = namaMk;
+        Ruangan = ruangan;
+        Hari = hari;
+        Semester = semester;
+        NamaDosen = namaDosen;
+        IdDosen = idDosen;
     }
 }

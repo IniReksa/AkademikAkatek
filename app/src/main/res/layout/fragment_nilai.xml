@@ -41,7 +41,6 @@
                 android:layout_gravity="center_horizontal"
                 android:theme="@style/InputLayout"
                 android:layout_margin="5dp"
-                android:visibility="gone"
                 android:id="@+id/progresNilaiFragment"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp" />

@@ -35,7 +35,6 @@ public class JadwalFragment extends Fragment {
 
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
-    public String ActiveFragment = "JADWAL";
     ProgressBar progressBar;
 
     SharedPref sharedPref;
@@ -49,7 +48,6 @@ public class JadwalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_jadwal, container, false);
-        ActiveFragment = "JADWAL";
 
         sharedPref = new SharedPref(getContext());
 
@@ -79,21 +77,26 @@ public class JadwalFragment extends Fragment {
 
                 String error = response.body().Error;
                 String message = response.body().Message;
+                List<Jadwal> jadwals = response.body().jadwal;
 
-                if (error.equals("0")){
-                    List<Jadwal> jadwals = response.body().jadwal;
-                    adapter = new RvJadwalMain(getContext(), jadwals);
-                    recyclerView.setAdapter(adapter);
-
-                } if (error.equals("1")){
-                    progressBar.setVisibility(View.VISIBLE);
-                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                if (jadwals != null) {
+                    if (error.equals("0")) {
+                        adapter = new RvJadwalMain(getContext(), jadwals);
+                        recyclerView.setAdapter(adapter);
+                        progressBar.setVisibility(View.GONE);
+                    }
+                    if (error.equals("1")) {
+//                        progressBar.setVisibility(View.VISIBLE);
+                        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Belum Ada Jadwal", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<JadwalResponse> call, Throwable t) {
-                progressBar.setVisibility(View.VISIBLE);
+//                progressBar.setVisibility(View.VISIBLE);
                 Toast.makeText(getContext(), "Jaringan Error", Toast.LENGTH_SHORT).show();
             }
         });

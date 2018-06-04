@@ -25,8 +25,8 @@ public class RvAdminMain extends RecyclerView.Adapter<RvAdminMain.ViewHolder> {
     public RvAdminMain() {
         super();
         mItems = new ArrayList<ItemGridAdmin>();
-        mItems.add(new ItemGridAdmin("Input Info", R.drawable.ic_mhs));
-        mItems.add(new ItemGridAdmin("Update Jadwal", R.drawable.ic_mhs));
+        mItems.add(new ItemGridAdmin("Input Info", R.drawable.ic_info));
+        mItems.add(new ItemGridAdmin("Update Jadwal", R.drawable.ic_updatejadwal));
 
     }
 

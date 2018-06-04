@@ -56,8 +56,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView, rvJadwalMain, rvInfo;
     private RecyclerView.Adapter adapter, adapterJadwal, adapterInfo;
     FragmentTransaction fragmentTransaction;
-//    public String ActiveFragment = "";
-    private TextView npmHome, namaHome;
+    private TextView npmHome, namaHome, NullJadwal;
     private ImageView imgMhs;
     ProgressBar progressKelas, progressJadwal, progressInfo;
 
@@ -67,7 +66,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-//        ActiveFragment = "HOME";
 
         sharedPref = new SharedPref(getContext());
 
@@ -90,6 +88,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         ambildataSekelas();
 
+        NullJadwal = v.findViewById(R.id.textNullJadwal);
         progressJadwal = v.findViewById(R.id.progresJadwalMain);
         rvJadwalMain = v.findViewById(R.id.rvJadwal);
         LinearLayoutManager layoutManagerJadwal = new LinearLayoutManager(getContext());
@@ -111,7 +110,6 @@ public class HomeFragment extends Fragment {
                 fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, jadwalFragment);
                 fragmentTransaction.commit();
-//                ActiveFragment = "JADWAL";
             }
         });
         btnlistinfo.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +119,6 @@ public class HomeFragment extends Fragment {
                 fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, infoFragment);
                 fragmentTransaction.commit();
-//                ActiveFragment = "INFO";
             }
         });
 
@@ -141,7 +138,6 @@ public class HomeFragment extends Fragment {
                     fragmentTransaction = getFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.framelayout, kelasFragment);
                     fragmentTransaction.commit();
-//                    ActiveFragment = "KELAS";
                 }
                 return false;
             }
@@ -186,7 +182,6 @@ public class HomeFragment extends Fragment {
                         adapter.notifyDataSetChanged();
                     }
                     if (error.equals("1")) {
-                        //                    progressKelas.setVisibility(View.VISIBLE);
                         Toast.makeText(getActivity(), Message, Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -196,7 +191,6 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<MahasiswaResponse> call, Throwable t) {
-//                progressKelas.setVisibility(View.VISIBLE);
                 Toast.makeText(getContext(), "Jaringan Error", Toast.LENGTH_SHORT).show();
             }
         });
@@ -233,22 +227,22 @@ public class HomeFragment extends Fragment {
                 if (jadwals != null) {
                     if (error.equals("0")) {
                         progressJadwal.setVisibility(View.GONE);
+                        NullJadwal.setVisibility(View.GONE);
                         adapterJadwal = new RvJadwalMain(getContext(), jadwals);
                         rvJadwalMain.setAdapter(adapterJadwal);
                         adapterJadwal.notifyDataSetChanged();
                     }
                     if (error.equals("1")) {
-//                    progressJadwal.setVisibility(View.VISIBLE);
                         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getContext(), "Tidak Ada Jadwal", Toast.LENGTH_SHORT).show();
+                    progressJadwal.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void onFailure(Call<JadwalResponse> call, Throwable t) {
-//                progressJadwal.setVisibility(View.VISIBLE);
+                NullJadwal.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Jaringan Error", Toast.LENGTH_SHORT).show();
             }
         });
@@ -318,7 +312,6 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<InfoResponse> call, Throwable t) {
-//                progressInfo.setVisibility(View.VISIBLE);
                 Toast.makeText(getContext(), "Jaringan Error", Toast.LENGTH_SHORT).show();
             }
         });

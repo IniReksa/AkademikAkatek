@@ -127,7 +127,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
-                            android:text="Jadwal"/>
+                            android:text="Jadwal Hari Ini"/>
 
                         <LinearLayout
                             android:gravity="end"
@@ -156,6 +156,14 @@
                             android:id="@+id/progresJadwalMain"
                             android:layout_width="wrap_content"
                             android:layout_height="50dp" />
+
+                        <TextView
+                            android:layout_margin="15dp"
+                            android:id="@+id/textNullJadwal"
+                            android:layout_gravity="center"
+                            android:text="Tidak Ada Jadwal Hari Ini"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
 
                         <android.support.v7.widget.RecyclerView
                             android:layout_width="match_parent"

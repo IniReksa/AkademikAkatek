@@ -5,10 +5,17 @@ import com.inireksa.akademikakatek.Model.KalenderResponse;
 import com.inireksa.akademikakatek.Model.LoginAdminResponse;
 import com.inireksa.akademikakatek.Model.MahasiswaResponse;
 import com.inireksa.akademikakatek.Model.LoginResponse;
-import com.inireksa.akademikakatek.Model.Angkatan;
+import com.inireksa.akademikakatek.Model.SpinnerAngkatan;
 import com.inireksa.akademikakatek.Model.NilaiResponse;
 import com.inireksa.akademikakatek.Model.Semester;
 import com.inireksa.akademikakatek.Model.ServerResponse;
+import com.inireksa.akademikakatek.Model.SpinnerDosen;
+import com.inireksa.akademikakatek.Model.SpinnerHari;
+import com.inireksa.akademikakatek.Model.SpinnerJurusan;
+import com.inireksa.akademikakatek.Model.SpinnerKelas;
+import com.inireksa.akademikakatek.Model.SpinnerMatkul;
+import com.inireksa.akademikakatek.Model.SpinnerRuangan;
+import com.inireksa.akademikakatek.Model.SpinnerSesi;
 
 import java.util.List;
 
@@ -72,9 +79,6 @@ public interface InterfaceAPI {
     Call<ServerResponse> tambahtoken (@Field("npm") String npm,
                                       @Field("token") String token);
 
-    @GET("ambilangkatan")
-    Call<List<Angkatan>> ambilangkatan();
-
     @GET("ambilkalender")
     Call<KalenderResponse> ambilkalender();
 
@@ -85,4 +89,35 @@ public interface InterfaceAPI {
     @POST("ambilnilai")
     Call<NilaiResponse> ambilnilai(@Field("npm") String npm,
                                    @Field("semester") String semester);
+
+    @GET("ambilangkatan")
+    Call<List<SpinnerAngkatan>> ambilangkatan();
+
+    @GET("ambilkelas")
+    Call<List<SpinnerKelas>> ambilkelas();
+
+    @GET("ambiljurusan")
+    Call<List<SpinnerJurusan>> ambiljurusan();
+
+    @GET("ambilsemuajadwal")
+    Call<JadwalResponse> ambilsemuajadwal();
+
+    @GET("ambildosen")
+    Call<List<SpinnerDosen>> ambildosen();
+
+    @FormUrlEncoded
+    @POST("ambilmatkul")
+    Call<List<SpinnerMatkul>> ambilmatkul(@Field("kelas") String kelas,
+                                          @Field("jurusan") String jurusan,
+                                          @Field("angkatan") String angkatan);
+
+    @FormUrlEncoded
+    @POST("updatejadwal")
+    Call<ServerResponse> updatejadwal(@Field("id") String id,
+                                      @Field("dosen") String dosen,
+                                      @Field("sesi") String sesi,
+                                      @Field("hari") String hari,
+                                      @Field("ruangan") String ruangan);
+
+
 }
